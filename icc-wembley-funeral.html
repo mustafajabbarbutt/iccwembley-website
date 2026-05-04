@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICC Wembley — Funeral Services</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B1A1A;
+    --red-dark: #6B1010;
+    --gold: #C9973A;
+    --gold-light: #E8B84B;
+    --cream: #FDF8F0;
+    --white: #ffffff;
+    --text: #2C1810;
+    --text-light: #6B5B4E;
+    --bottom-nav-h: 70px;
+    --top-header-h: 80px;
+    --section-nav-h: 52px;
+    --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--top-header-h) + var(--section-nav-h));
+  }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    padding-top: calc(var(--top-header-h) + var(--section-nav-h));
+    padding-bottom: calc(var(--bottom-nav-h) + 42px);
+  }
+
+  /* ── PAGE LOAD ANIMATIONS ── */
+  @keyframes fadeInHeader {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInContent {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .top-header {
+    animation: fadeInHeader 0.6s ease-out;
+  }
+
+  .main-content {
+    opacity: 0;
+    animation: fadeInContent 0.8s ease-out 0.4s forwards;
+  }
+
+  /* ── TOP HEADER ── */
+  .top-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--top-header-h);
+    background: var(--red);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    border-bottom: 3px solid var(--gold);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  /* ── AUTO-HIDE TOP HEADER ON SCROLL DOWN ── */
+  body.header-hidden .top-header {
+    transform: translateY(-100%);
+  }
+
+  .top-header.scrolled {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    background: var(--red-dark);
+  }
+
+  .header-logo {
+    width: 72px; 
+    height: 72px;
+    object-fit: contain;
+    transition: transform var(--transition);
+  }
+
+  .top-header.scrolled .header-logo {
+    transform: scale(0.95);
+  }
+
+  .header-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-subtitle {
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 600px) {
+    .header-subtitle {
+      font-size: 2rem;
+    }
+  }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: var(--bottom-nav-h);
+    background: var(--white);
+    border-top: 2px solid var(--red);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    z-index: 99;
+  }
+
+  .bn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 8px 4px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .bn-item:hover {
+    color: var(--red);
+    background: var(--cream);
+  }
+
+  .bn-item.active {
+    color: var(--red);
+    background: var(--cream);
+  }
+
+  .bn-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+
+  .bn-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  /* ── DONATION TICKER (BOTTOM MARQUEE) ── */
+  .donate-ticker{
+    position:fixed;
+    bottom: var(--bottom-nav-h);
+    left:0;right:0;z-index:300;
+    height:42px;
+    background:linear-gradient(90deg, #1F7A4A 0%, #25A35E 50%, #1F7A4A 100%);
+    border-top:2px solid var(--gold);
+    overflow:hidden;
+    cursor:pointer;
+    display:flex;align-items:center;
+    box-shadow:0 -2px 12px rgba(0,0,0,0.2);
+    text-decoration:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
+  .donate-ticker-track{
+    display:flex;align-items:center;
+    white-space:nowrap;
+    animation:dtScroll 35s linear infinite;
+    will-change:transform;
+  }
+  .donate-ticker:hover .donate-ticker-track,
+  .donate-ticker:active .donate-ticker-track{animation-play-state:paused;}
+  .donate-ticker-item{
+    display:inline-flex;align-items:center;gap:0.65rem;
+    padding:0 1.75rem;
+    color:#FFFFFF;
+    font-size:0.88rem;font-weight:600;letter-spacing:0.03em;
+    font-family:'Nunito Sans',sans-serif;
+  }
+  .donate-ticker-item strong{color:#FFE98A;font-weight:700;}
+  .donate-ticker-item .dt-heart{
+    display:inline-block;color:#FFE98A;font-size:1rem;line-height:1;
+    animation:dtPulse 1.8s ease-in-out infinite;
+  }
+  .donate-ticker-item .dt-sep{color:rgba(255,233,138,0.6);font-size:1.1rem;}
+  .donate-ticker-cta{
+    background:#FFE98A;color:#1F7A4A;
+    padding:0.22rem 0.7rem;border-radius:12px;
+    font-size:0.72rem;font-weight:800;text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  @keyframes dtScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @keyframes dtPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+  }
+  @media(max-width:500px){
+    .donate-ticker-item{font-size:0.78rem;padding:0 1.25rem;gap:0.5rem;}
+    .donate-ticker-cta{font-size:0.66rem;padding:0.18rem 0.55rem;}
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 20px;
+  }
+
+  /* ── URGENT CONTACT BANNER ── */
+  .urgent-banner {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 20px 0 12px;
+    box-shadow: 0 4px 24px rgba(139,26,26,0.25);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .urgent-icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+  }
+
+  .urgent-content {
+    flex: 1;
+  }
+
+  .urgent-title {
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .urgent-number {
+    display: block;
+    color: var(--white);
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 4px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .urgent-text {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.8rem;
+  }
+
+  /* ── QUICK DOWNLOAD BUTTON ── */
+  .quick-download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--white);
+    padding: 14px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    transition: var(--transition);
+    box-shadow: 0 2px 8px rgba(201,151,58,0.3);
+    margin-bottom: 16px;
+  }
+
+  .quick-download-btn:hover {
+    background: #B88832;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201,151,58,0.4);
+  }
+
+  .quick-download-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  /* ── SECTION CARDS ── */
+  .section-card {
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    margin: 0 0 14px;
+    overflow: hidden;
+    border: 2px solid var(--gold);
+  }
+
+  .section-header {
+    background: linear-gradient(135deg, rgba(139,26,26,0.05), rgba(201,151,58,0.05));
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid var(--red);
+  }
+
+  .section-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--red);
+  }
+
+  .section-body {
+    padding: 18px 20px;
+  }
+
+  /* ── NUMBERED STEPS ── */
+  .numbered-steps {
+    list-style: none;
+    counter-reset: step-counter;
+  }
+
+  .numbered-steps li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 18px;
+  }
+
+  .numbered-steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0; top: 0;
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(139,26,26,0.3);
+  }
+
+  .step-content {
+    background: rgba(139,26,26,0.02);
+    padding: 12px 14px;
+    border-radius: 10px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .step-title {
+    font-weight: 700;
+    color: var(--red);
+    font-size: 0.88rem;
+    margin-bottom: 6px;
+  }
+
+  .step-text {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ── INFO ROWS ── */
+  .info-row {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(139,26,26,0.08);
+  }
+
+  .info-row:last-child {
+    border-bottom: none;
+  }
+
+  .info-row-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+  }
+
+  .info-row-content {
+    flex: 1;
+  }
+
+  .info-row-title {
+    font-weight: 700;
+    color: var(--red);
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+  }
+
+  .info-row-text {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ── ETIQUETTE LIST ── */
+  .etiquette-list {
+    list-style: none;
+  }
+
+  .etiquette-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .eli {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    background: linear-gradient(135deg, rgba(201,151,58,0.08), rgba(139,26,26,0.05));
+    border-left: 4px solid var(--gold);
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+  /* ── CONTACT CARDS ── */
+  .contact-cards {
+    display: grid;
+    gap: 14px;
+  }
+
+  @media (min-width: 600px) {
+    .contact-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .contact-card {
+    background: linear-gradient(135deg, rgba(139,26,26,0.03), rgba(201,151,58,0.03));
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-role {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+  }
+
+  .contact-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .contact-card a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--white);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 1px solid rgba(139,26,26,0.1);
+  }
+
+  .contact-card a:hover {
+    background: rgba(139,26,26,0.05);
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .contact-card a svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+
+  /* ── SECTION NAV ── */
+  .section-nav {
+    position: fixed;
+    top: var(--top-header-h);
+    left: 0; right: 0;
+    height: var(--section-nav-h);
+    background: var(--cream);
+    z-index: 99;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transition: transform 0.3s ease;
+  }
+
+  body.header-hidden .section-nav {
+    transform: translateY(calc(-1 * var(--top-header-h)));
+  }
+
+  .sn-item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 0 2px;
+    color: var(--text-light);
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    border-right: 1px solid rgba(0,0,0,0.07);
+    transition: background var(--transition), color var(--transition);
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .sn-item:last-child { border-right: none; }
+
+  .sn-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+  }
+
+  .sn-item:hover,
+  .sn-item.active {
+    background: rgba(139,26,26,0.06);
+    color: var(--red);
+  }
+
+  .sn-item.active::after,
+  .sn-item:hover::after {
+    transform: scaleX(1);
+  }
+
+  .sn-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .sn-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* ── FOOTER INFO ── */
+  .footer-info {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<header class="top-header" id="topHeader">
+  <a href="index.html" aria-label="Back to home"><img src="IMG_0931_transparent.png" alt="ICC Wembley Logo" class="header-logo"></a>
+  <div class="header-text">
+    <div class="header-subtitle">Funeral Services</div>
+  </div>
+</header>
+
+<!-- SECTION NAV -->
+<nav class="section-nav" id="sectionNav" role="navigation" aria-label="Page sections">
+  <a class="sn-item active" href="#section-about" aria-label="About">
+    <span class="sn-icon">🕌</span><span class="sn-label">About</span>
+  </a>
+  <a class="sn-item" href="#section-steps" aria-label="What To Do">
+    <span class="sn-icon">📋</span><span class="sn-label">Steps</span>
+  </a>
+  <a class="sn-item" href="#section-services" aria-label="Our Services">
+    <span class="sn-icon">🤲</span><span class="sn-label">Services</span>
+  </a>
+  <a class="sn-item" href="#section-etiquette" aria-label="Etiquette">
+    <span class="sn-icon">📖</span><span class="sn-label">Etiquette</span>
+  </a>
+  <a class="sn-item" href="#section-contact" aria-label="Contact">
+    <span class="sn-icon">📞</span><span class="sn-label">Contact</span>
+  </a>
+</nav>
+
+  <!-- URGENT CONTACT BANNER -->
+<main class="main-content">
+  <div class="urgent-banner">
+    <div class="urgent-icon">📞</div>
+    <div class="urgent-content">
+      <div class="urgent-title">24/7 Emergency Contact</div>
+      <a href="tel:07886863373" class="urgent-number">07886 863 373</a>
+      <div class="urgent-text">Call us immediately if someone has passed away</div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD FORM QUICK ACCESS -->
+  <a href="funeral_form_2.pdf" download="ICC_Wembley_Funeral_Form.pdf" class="quick-download-btn">
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
+    Download Funeral Form (PDF)
+  </a>
+
+  <!-- ABOUT SECTION -->
+  <div class="section-card" id="section-about">
+    <div class="section-header">
+      <span class="section-icon">🕌</span>
+      <h2 class="section-title">Our Funeral Service</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size: 0.88rem; line-height: 1.7; margin-bottom: 14px;">ICC Wembley provides a complete Islamic funeral service including <strong>Ghusl (ritual washing)</strong>, <strong>Kafan (shrouding)</strong>, <strong>Janazah Salah (funeral prayer)</strong>, and <strong>burial arrangements</strong>.</p>
+      <p style="font-size: 0.88rem; line-height: 1.7;">We guide families through this difficult time with compassion and ensure all Islamic rites are performed with dignity in accordance with the Sunnah.</p>
+    </div>
+  </div>
+
+  <!-- WHAT TO DO SECTION -->
+  <div class="section-card" id="section-steps">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <h2 class="section-title">What To Do When Someone Dies</h2>
+    </div>
+    <div class="section-body">
+      <ol class="numbered-steps">
+        <li>
+          <div class="step-content">
+            <div class="step-title">Call a Doctor</div>
+            <div class="step-text">If the death occurs at home or outside a hospital, call 999 or the person's GP immediately to certify the death.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Contact ICC Wembley Funeral Team</div>
+            <div class="step-text">Call us at <strong>07886 863 373</strong>. We will guide you through the next steps and begin preparations.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Inform the Registrar</div>
+            <div class="step-text">Register the death at the local register office (must be done within 5 days in England & Wales).</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Obtain the Green Certificate</div>
+            <div class="step-text">Collect the green burial certificate (Form 9) from the registrar — this is required before burial can take place.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <div class="step-title">Bring Documents to ICC Wembley</div>
+            <div class="step-text">Deliver the green certificate and complete our funeral registration form so we can proceed with arrangements.</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- OUR SERVICES SECTION -->
+  <div class="section-card" id="section-services">
+    <div class="section-header">
+      <span class="section-icon">🤲</span>
+      <h2 class="section-title">Our Complete Services</h2>
+    </div>
+    <div class="section-body">
+      <div class="info-row">
+        <div class="info-row-icon">💧</div>
+        <div class="info-row-content">
+          <div class="info-row-title">Ghusl (Ritual Washing)</div>
+          <div class="info-row-text">Performed by trained, same-gender attendants in our dedicated facility with full Islamic observance.</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">🧵</div>
+        <div class="info-row-content">
+          <div class="info-row-title">Kafan (Shrouding)</div>
+          <div class="info-row-text">The deceased is shrouded in simple white cotton cloth according to Sunnah.</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">🕌</div>
+        <div class="info-row-content">
+          <div class="info-row-title">Janazah Salah (Funeral Prayer)</div>
+          <div class="info-row-text">Conducted at ICC Wembley or at another masjid as requested by the family.</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">🌿</div>
+        <div class="info-row-content">
+          <div class="info-row-title">Burial Arrangements</div>
+          <div class="info-row-text">We coordinate with Islamic burial grounds (Gardens of Peace or other cemeteries) ensuring proper Qiblah orientation.</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-row-icon">✈️</div>
+        <div class="info-row-content">
+          <div class="info-row-title">Repatriation Services</div>
+          <div class="info-row-text">Full support for families wishing to repatriate the deceased for burial abroad, including embassy clearances.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ETIQUETTE SECTION -->
+  <div class="section-card" id="section-etiquette">
+    <div class="section-header">
+      <span class="section-icon">📖</span>
+      <h2 class="section-title">Janazah & Burial Etiquette</h2>
+    </div>
+    <div class="section-body">
+      <h3 style="font-size: 0.9rem; font-weight: 700; color: var(--red); margin-bottom: 12px;">🕌 At the Masjid — Janazah Salah</h3>
+      <ul class="etiquette-list">
+        <li><span class="eli">👗</span> Dress modestly.</li>
+        <li><span class="eli">👟</span> Remove shoes before entering the prayer hall.</li>
+        <li><span class="eli">🤲</span> Every male Muslim is obligated to attend Janazah Salah. Women may participate if they choose.</li>
+        <li><span class="eli">📵</span> Do not take photographs or use recording devices.</li>
+        <li><span class="eli">🤫</span> Maintain silence and composure throughout the prayer.</li>
+      </ul>
+
+      <h3 style="font-size: 0.9rem; font-weight: 700; color: var(--red); margin: 20px 0 12px;">🌿 At the Cemetery — Burial</h3>
+      <ul class="etiquette-list">
+        <li><span class="eli">🚶</span> Traditionally, only men attend the graveside burial, though some families may permit women and children.</li>
+        <li><span class="eli">🌍</span> The grave faces the Qiblah. The deceased is placed on their right side facing Makkah.</li>
+        <li><span class="eli">🪨</span> All mourners pour three handfuls of earth on the grave before it is filled in.</li>
+        <li><span class="eli">🤲</span> Make du'a for the deceased — ask Allah for forgiveness and mercy upon them.</li>
+        <li><span class="eli">🚫</span> Cremation is strictly prohibited in Islam. Burial must take place.</li>
+      </ul>
+
+      <div class="alert-box" style="margin-top: 16px;">
+        <strong>After the Funeral:</strong> Family members typically gather and receive condolences at home. The community provides food for the family during the first three days. Families are encouraged to recite Qur'an, give charity (<em>Sadaqah Jariyah</em>) in the name of the deceased, and make continuous du'a.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div class="section-card" id="section-contact">
+    <div class="section-header">
+      <span class="section-icon">📞</span>
+      <h2 class="section-title">Contact Our Funeral Team</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size: 0.88rem; line-height: 1.7; margin-bottom: 16px;">Our team is here to support your family. Do not hesitate to call us — we will guide you through every step with compassion and in full accordance with Islamic tradition.</p>
+      
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="contact-role">⚱️ Funeral Director</div>
+          <div class="contact-name">Saghir Khan</div>
+          <a href="tel:07886863373">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            07886 863 373
+          </a>
+          <a href="https://wa.me/447886863373" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-role">📍 Our Address</div>
+          <div class="contact-name">ICC Wembley</div>
+          <a href="https://maps.google.com/?q=72+Harrow+Road+Wembley+HA9+6PL" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            72–74 Harrow Road, Wembley HA9 6PL
+          </a>
+          <a href="http://www.iccwembley.co.uk" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            www.iccwembley.co.uk
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- DONATION TICKER (BOTTOM MARQUEE) -->
+<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener" aria-label="Donate to ICC Wembley">
+  <div class="donate-ticker-track">
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+
+    <!-- Duplicate for seamless loop -->
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+  </div>
+</a>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="bn-item" aria-label="Home page">
+    <div class="bn-icon" aria-hidden="true">🕌</div>
+    <div>Home</div>
+  </a>
+  <a href="prayer-times.html" class="bn-item" aria-label="Prayer times">
+    <div class="bn-icon" aria-hidden="true">🕐</div>
+    <div>Prayers</div>
+  </a>
+  <a href="madrassa.html" class="bn-item" aria-label="Madrassa information">
+    <div class="bn-icon" aria-hidden="true">📖</div>
+    <div>Madrassa</div>
+  </a>
+  <a href="events.html" class="bn-item" aria-label="Events calendar">
+    <div class="bn-icon" aria-hidden="true">📅</div>
+    <div>Events</div>
+  </a>
+  <a href="announcements.html" class="bn-item" aria-label="Announcements">
+    <div class="bn-icon" aria-hidden="true">📢</div>
+    <div>News</div>
+  </a>
+  <a href="other.html" class="bn-item active" aria-label="Other services" aria-current="page">
+    <div class="bn-icon" aria-hidden="true">☰</div>
+    <div>Other</div>
+  </a>
+</nav>
+
+<script>
+// ── SECTION NAV SCROLL SPY ──
+(function(){
+  const OFFSET = 80 + 52 + 16;
+  const items = document.querySelectorAll('.sn-item');
+  const sections = ['section-about','section-steps','section-services','section-etiquette','section-contact']
+    .map(id => document.getElementById(id)).filter(Boolean);
+
+  function updateActive(){
+    const y = window.scrollY + OFFSET + 10;
+    let active = sections[0];
+    for(const s of sections){
+      if(s.getBoundingClientRect().top + window.scrollY <= y) active = s;
+    }
+    items.forEach(item => {
+      const isActive = item.getAttribute('href') === '#' + active.id;
+      item.classList.toggle('active', isActive);
+    });
+  }
+
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+})();
+
+(function(){
+  let lastY = window.scrollY || 0;
+  let ticking = false;
+  const TOP_SAFE_ZONE = 80;   // always show header near top of page
+  const DELTA         = 8;    // minimum scroll delta to trigger a change
+
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const y = window.scrollY || 0;
+      const diff = y - lastY;
+
+      // Always show near top
+      if(y < TOP_SAFE_ZONE){
+        document.body.classList.remove('header-hidden');
+        lastY = y;
+        ticking = false;
+        return;
+      }
+
+      if(Math.abs(diff) < DELTA){ ticking = false; return; }
+
+      if(diff > 0){
+        // Scrolling DOWN the page → hide top header
+        document.body.classList.add('header-hidden');
+      } else {
+        // Scrolling UP the page → show top header
+        document.body.classList.remove('header-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+</script>
+
+</body>
+</html>

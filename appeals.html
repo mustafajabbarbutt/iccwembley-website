@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Collection Appeals - Islamic Cultural Centre Wembley">
+<title>Collection Appeals — ICC Wembley</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B1A1A;
+    --red-dark: #6B1010;
+    --gold: #C9973A;
+    --gold-light: #E8B84B;
+    --cream: #FDF8F0;
+    --white: #ffffff;
+    --text: #2C1810;
+    --text-light: #6B5B4E;
+    --bottom-nav-h: 70px;
+    --top-header-h: 80px;
+    --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--top-header-h);
+  }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    padding-top: var(--top-header-h);
+    padding-bottom: calc(var(--bottom-nav-h) + 42px);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── SKIP LINK FOR ACCESSIBILITY ── */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    background: var(--red);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    font-weight: 600;
+  }
+
+  .skip-link:focus {
+    top: 10px;
+    outline: 3px solid var(--gold);
+  }
+
+  /* ── SCREEN READER ONLY ── */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* ── TOP HEADER ── */
+  .top-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--top-header-h);
+    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    border-bottom: 3px solid var(--gold);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  /* ── AUTO-HIDE TOP HEADER ON SCROLL DOWN ── */
+  body.header-hidden .top-header {
+    transform: translateY(-100%);
+  }
+
+  .header-logo {
+    width: 72px; 
+    height: 72px;
+    object-fit: contain;
+    transition: transform var(--transition);
+  }
+
+  .header-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .header-divider {
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    margin: 0 2px;
+  }
+
+  .header-subtitle {
+    color: var(--gold-light);
+    font-size: 1.35rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.1;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 16px 20px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .appeals-body {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.3s forwards;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: #FFF8F0;
+    border: 2px solid var(--gold);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .info-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-card-title svg {
+    flex-shrink: 0;
+  }
+
+  .info-card p {
+    font-size: 0.88rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 0.9rem;
+  }
+
+  .info-card p:last-of-type {
+    margin-bottom: 0.9rem;
+  }
+
+  .requirements-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .requirements-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.875rem;
+    color: #333;
+    line-height: 1.4;
+  }
+
+  .req-bullet {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: var(--red);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+
+  .info-note {
+    font-size: 0.82rem;
+    color: var(--red-dark);
+    font-weight: 600;
+    font-style: italic;
+    background: rgba(139,26,26,0.06);
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+  }
+
+  /* ── EMAIL CTA CARD ── */
+  .form-card {
+    background: var(--white);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.6rem 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: var(--bottom-nav-h);
+    background: var(--white);
+    border-top: 2px solid var(--red);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    z-index: 99;
+  }
+
+  .bn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 8px 4px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .bn-item:hover {
+    color: var(--red);
+    background: var(--cream);
+  }
+
+  .bn-item.active {
+    color: var(--red);
+    background: var(--cream);
+  }
+
+  .bn-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+
+  .bn-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  /* ── DONATION TICKER (BOTTOM MARQUEE) ── */
+  .donate-ticker{
+    position:fixed;
+    bottom: var(--bottom-nav-h);
+    left:0;right:0;z-index:300;
+    height:42px;
+    background:linear-gradient(90deg, #1F7A4A 0%, #25A35E 50%, #1F7A4A 100%);
+    border-top:2px solid var(--gold);
+    overflow:hidden;
+    cursor:pointer;
+    display:flex;align-items:center;
+    box-shadow:0 -2px 12px rgba(0,0,0,0.2);
+    text-decoration:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
+  .donate-ticker-track{
+    display:flex;align-items:center;
+    white-space:nowrap;
+    animation:dtScroll 35s linear infinite;
+    will-change:transform;
+  }
+  .donate-ticker:hover .donate-ticker-track,
+  .donate-ticker:active .donate-ticker-track{animation-play-state:paused;}
+  .donate-ticker-item{
+    display:inline-flex;align-items:center;gap:0.65rem;
+    padding:0 1.75rem;
+    color:#FFFFFF;
+    font-size:0.88rem;font-weight:600;letter-spacing:0.03em;
+    font-family:'Nunito Sans',sans-serif;
+  }
+  .donate-ticker-item strong{color:#FFE98A;font-weight:700;}
+  .donate-ticker-item .dt-heart{
+    display:inline-block;color:#FFE98A;font-size:1rem;line-height:1;
+    animation:dtPulse 1.8s ease-in-out infinite;
+  }
+  .donate-ticker-item .dt-sep{color:rgba(255,233,138,0.6);font-size:1.1rem;}
+  .donate-ticker-cta{
+    background:#FFE98A;color:#1F7A4A;
+    padding:0.22rem 0.7rem;border-radius:12px;
+    font-size:0.72rem;font-weight:800;text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  @keyframes dtScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @keyframes dtPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+  }
+  @media(max-width:500px){
+    .donate-ticker-item{font-size:0.78rem;padding:0 1.25rem;gap:0.5rem;}
+    .donate-ticker-cta{font-size:0.66rem;padding:0.18rem 0.55rem;}
+  }
+
+  @media(max-width: 600px) {
+    .main-content {
+      padding: 1.5rem 1rem 3rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- SKIP LINK -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- TOP HEADER -->
+<header class="top-header" role="banner">
+  <a href="index.html" aria-label="Go to homepage">
+    <img class="header-logo" src="IMG_0931_transparent.png" alt="ICC Wembley Logo">
+  </a>
+  <div class="header-text">
+    <h1 class="header-title">Collection Appeals</h1>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main id="main-content" class="main-content">
+
+  <div class="appeals-body">
+  <div class="info-card">
+    <div class="info-card-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9973A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      How to Apply
+    </div>
+    <p>
+      Assalamu 'Alaikum. If your masjid or charitable organisation wishes to conduct a collection at ICC Wembley, please send your request by email to <a href="mailto:appeals@iccwembley.co.uk" style="color: var(--red); font-weight: 700; text-decoration: none;">appeals@iccwembley.co.uk</a>. A member of the office will review your request and get back to you shortly, insha'Allah.
+    </p>
+    <p>Please ensure the following information is included in your email:</p>
+    <ul class="requirements-list">
+      <li><span class="req-bullet">1</span>Request Letter — a formal letter from your organisation requesting permission to collect</li>
+      <li><span class="req-bullet">2</span>Charity Registration Certificate — proof that your organisation is a registered charity</li>
+      <li><span class="req-bullet">3</span>Project collecting for — details of the specific project or cause funds will go towards</li>
+      <li><span class="req-bullet">4</span>Country or area you propose to collect for — specify the geographic beneficiary</li>
+      <li><span class="req-bullet">5</span>Contact Name — the name of the person we should correspond with</li>
+      <li><span class="req-bullet">6</span>Contact Number — a phone number for the designated contact</li>
+    </ul>
+    <div class="info-note">
+      Once we receive your email, a member of the office will get back to you shortly, insha'Allah.
+    </div>
+  </div>
+
+  <!-- EMAIL CTA CARD -->
+  <div class="form-card" style="text-align: center; padding: 2rem 1.5rem;">
+    <div class="form-title" style="justify-content: center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B1A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Send Your Application
+    </div>
+    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
+      Please send your request along with all required documents to our appeals team. Make sure to include all the information listed above in your email.
+    </p>
+    <a href="mailto:appeals@iccwembley.co.uk" style="display: inline-flex; align-items: center; gap: 0.6rem; background: var(--red); color: white; text-decoration: none; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 700; font-size: 1rem; font-family: 'Nunito Sans', sans-serif;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+      </svg>
+      appeals@iccwembley.co.uk
+    </a>
+    <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 1rem;">
+      Tap the button above to open your email app
+    </p>
+  </div>
+
+  </div>
+  <!-- /appeals-body -->
+
+</main>
+
+<!-- DONATION TICKER (BOTTOM MARQUEE) -->
+<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener" aria-label="Donate to ICC Wembley">
+  <div class="donate-ticker-track">
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+
+    <!-- Duplicate for seamless loop -->
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+  </div>
+</a>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="bn-item" aria-label="Home page">
+    <div class="bn-icon" aria-hidden="true">🕌</div>
+    <div>Home</div>
+  </a>
+  <a href="prayer-times.html" class="bn-item" aria-label="Prayer times">
+    <div class="bn-icon" aria-hidden="true">🕐</div>
+    <div>Prayers</div>
+  </a>
+  <a href="madrassa.html" class="bn-item" aria-label="Madrassa information">
+    <div class="bn-icon" aria-hidden="true">📖</div>
+    <div>Madrassa</div>
+  </a>
+  <a href="events.html" class="bn-item" aria-label="Events calendar">
+    <div class="bn-icon" aria-hidden="true">📅</div>
+    <div>Events</div>
+  </a>
+  <a href="announcements.html" class="bn-item" aria-label="Announcements">
+    <div class="bn-icon" aria-hidden="true">📢</div>
+    <div>News</div>
+  </a>
+  <a href="other.html" class="bn-item active" aria-label="Other services" aria-current="page">
+    <div class="bn-icon" aria-hidden="true">☰</div>
+    <div>Other</div>
+  </a>
+</nav>
+
+<script>
+// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP ──
+(function(){
+  let lastY = window.scrollY || 0;
+  let ticking = false;
+  const TOP_SAFE_ZONE = 80;
+  const DELTA = 8;
+
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const y = window.scrollY || 0;
+      const diff = y - lastY;
+
+      // Add/remove scrolled class for WhatsApp fade effect
+      if(y > 100) {
+        document.body.classList.add('scrolled');
+      } else {
+        document.body.classList.remove('scrolled');
+      }
+
+      // Always show near top
+      if(y < TOP_SAFE_ZONE){
+        document.body.classList.remove('header-hidden');
+        lastY = y;
+        ticking = false;
+        return;
+      }
+
+      if(Math.abs(diff) < DELTA){ ticking = false; return; }
+
+      if(diff > 0){
+        // Scrolling DOWN → hide top header
+        document.body.classList.add('header-hidden');
+      } else {
+        // Scrolling UP → show top header
+        document.body.classList.remove('header-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="About Us - Islamic Cultural Centre Wembley">
+<title>About Us — ICC Wembley</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B1A1A;
+    --red-dark: #6B1010;
+    --gold: #C9973A;
+    --gold-light: #E8B84B;
+    --cream: #FDF8F0;
+    --white: #ffffff;
+    --text: #2C1810;
+    --text-light: #6B5B4E;
+    --bottom-nav-h: 70px;
+    --top-header-h: 80px;
+    --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--top-header-h);
+  }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    padding-top: var(--top-header-h);
+    padding-bottom: calc(var(--bottom-nav-h) + 42px);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    background: var(--red);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    font-weight: 600;
+  }
+  .skip-link:focus { top: 10px; outline: 3px solid var(--gold); }
+
+  /* ── TOP HEADER ── */
+  .top-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--top-header-h);
+    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    border-bottom: 3px solid var(--gold);
+    transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+    opacity: 0;
+    animation: fadeInHeader 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInHeader {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  body.header-hidden .top-header { transform: translateY(-100%); }
+
+  .header-logo {
+    width: 72px; height: 72px;
+    object-fit: contain;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .header-subtitle {
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .header-divider { color: var(--gold-light); margin: 0 4px; }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 55vw;
+    max-height: 420px;
+    min-height: 220px;
+    overflow: hidden;
+    background: var(--red-dark);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.75;
+    transition: transform 8s ease-out;
+    transform: scale(1.05);
+  }
+
+  .hero.loaded .hero-img { transform: scale(1); }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(107,16,16,0.3) 0%, rgba(44,24,16,0.7) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .hero-badge {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.6s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--white);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.8s forwards;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 16px 2rem;
+    opacity: 0;
+    animation: fadeInContent 0.8s ease-out 0.4s forwards;
+  }
+
+  @keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── INTRO BLOCK ── */
+  .intro-block {
+    background: var(--white);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 2rem 1.8rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--red), var(--gold));
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-light);
+  }
+
+  .section-text + .section-text { margin-top: 0.8rem; }
+
+  /* ── GALLERY ── */
+  .gallery-section {
+    margin-bottom: 2rem;
+  }
+
+  .gallery-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .gallery-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Masonry-style grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+
+  @media(min-width: 600px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--red-dark);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 8px 24px rgba(139,26,26,0.18);
+  }
+
+  /* Feature first item */
+  .gallery-item:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16/7;
+  }
+
+  .gallery-item:not(:first-child) {
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, opacity var(--transition);
+    opacity: 0.92;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  .gallery-item-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(44,24,16,0.85) 0%, transparent 100%);
+    color: var(--white);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 1.2rem 0.8rem 0.6rem;
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  .gallery-item:hover .gallery-item-caption { opacity: 1; }
+
+  .gallery-item-border {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity var(--transition);
+    pointer-events: none;
+  }
+
+  .gallery-item:hover .gallery-item-border { opacity: 1; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 8px;
+    border: 3px solid var(--gold);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    object-fit: contain;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+
+  .lightbox.open .lightbox-img { transform: scale(1); }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    padding: 0.3rem;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: 1.5rem;
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  /* ── STATS STRIP ── */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--gold);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .stat-item {
+    background: var(--white);
+    padding: 1.4rem 0.8rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── VALUES CARDS ── */
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media(min-width: 500px) {
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .value-card {
+    background: var(--white);
+    border: 1.5px solid rgba(201,151,58,0.4);
+    border-radius: 12px;
+    padding: 1.4rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .value-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 4px 16px rgba(139,26,26,0.1);
+  }
+
+  .value-icon { font-size: 1.8rem; margin-bottom: 0.6rem; display: block; }
+  .value-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 0.4rem;
+  }
+  .value-text { font-size: 0.85rem; line-height: 1.65; color: var(--text-light); }
+
+  /* ── CONTACT STRIP ── */
+  .contact-strip {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    border-radius: 14px;
+    padding: 1.6rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--gold);
+  }
+
+  .contact-strip h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .contact-strip p {
+    color: var(--gold-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: var(--bottom-nav-h);
+    background: var(--white);
+    border-top: 1px solid rgba(139,26,26,0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 200;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .bn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 8px 4px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .bn-item:hover { color: var(--red); background: var(--cream); }
+
+  .bn-item.active {
+    color: var(--red);
+    background: var(--cream);
+  }
+
+  .bn-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+
+  .bn-icon { font-size: 1.5rem; }
+
+  /* ── DONATION TICKER ── */
+  .donate-ticker {
+    position: fixed;
+    bottom: var(--bottom-nav-h);
+    left: 0; right: 0; z-index: 300;
+    height: 42px;
+    background: linear-gradient(90deg, #1F7A4A 0%, #25A35E 50%, #1F7A4A 100%);
+    border-top: 2px solid var(--gold);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex; align-items: center;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .donate-ticker:hover { background: linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%); }
+
+  .donate-ticker-track {
+    display: flex; align-items: center;
+    white-space: nowrap;
+    animation: dtScroll 35s linear infinite;
+    will-change: transform;
+  }
+
+  .donate-ticker:hover .donate-ticker-track,
+  .donate-ticker:active .donate-ticker-track { animation-play-state: paused; }
+
+  .donate-ticker-item {
+    display: inline-flex; align-items: center; gap: 0.65rem;
+    padding: 0 1.75rem;
+    color: #FFFFFF;
+    font-size: 0.88rem; font-weight: 600; letter-spacing: 0.03em;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+
+  .donate-ticker-item strong { color: #FFE98A; font-weight: 700; }
+  .donate-ticker-item .dt-heart { display: inline-block; color: #FFE98A; font-size: 1rem; line-height: 1; animation: dtPulse 1.8s ease-in-out infinite; }
+  .donate-ticker-item .dt-sep { color: rgba(255,233,138,0.6); font-size: 1.1rem; }
+  .donate-ticker-cta { background: #FFE98A; color: #1F7A4A; padding: 0.22rem 0.7rem; border-radius: 12px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  @keyframes dtScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes dtPulse { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.25); } }
+
+  @media(max-width: 500px) {
+    .donate-ticker-item { font-size: 0.78rem; padding: 0 1.25rem; gap: 0.5rem; }
+    .donate-ticker-cta { font-size: 0.66rem; padding: 0.18rem 0.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- TOP HEADER -->
+<header class="top-header" role="banner">
+  <a href="index.html" aria-label="Go to homepage">
+    <img class="header-logo" src="IMG_0931_transparent.png" alt="ICC Wembley Logo">
+  </a>
+  <div>
+    <div class="header-title">About Us</div>
+    <div class="header-subtitle">ICC Wembley</div>
+  </div>
+</header>
+
+<!-- HERO IMAGE -->
+<div class="hero" id="hero">
+  <img class="hero-img" src="WhatsApp Image 2026-05-03 at 10.27.04.jpeg" alt="Islamic Cultural Centre Wembley exterior" loading="eager">
+  <div class="hero-overlay">
+    <p class="hero-badge">بسم الله الرحمن الرحيم</p>
+    <h2 class="hero-title">Islamic Cultural Centre<br>Wembley</h2>
+    <div class="hero-divider"></div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="main-content" class="main-content">
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-heading">A Home for the Muslim Community in Wembley</h2>
+    <p class="section-text">
+      The Islamic Cultural Centre Wembley (ICC Wembley) has been a cornerstone of the local Muslim community for decades. We are a welcoming place of worship, learning, and community service, rooted in the teachings of Islam and dedicated to serving Muslims and non-Muslims alike.
+    </p>
+    <p class="section-text">
+      Situated in the heart of Wembley, our centre provides a full range of Islamic services — from daily prayers and Friday Jumu'ah to our Madrassa for children, funeral services, and community outreach. We strive to create an environment where faith, knowledge, and brotherhood flourish.
+    </p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Daily Prayers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">7</div>
+      <div class="stat-label">Days Open</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Community Spirit</div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <p class="gallery-label">Our Space</p>
+    <h2 class="gallery-heading">Inside ICC Wembley</h2>
+
+    <div class="gallery-grid" id="gallery">
+
+      <!-- Feature image: exterior -->
+      <div class="gallery-item" data-src="WhatsApp Image 2026-05-03 at 10.27.50.jpeg" data-caption="ICC Wembley — Main Building Exterior">
+        <img src="WhatsApp Image 2026-05-03 at 10.27.50.jpeg" alt="ICC Wembley exterior building" loading="lazy">
+        <div class="gallery-item-caption">Main Building Exterior</div>
+        <div class="gallery-item-border"></div>
+      </div>
+
+      <!-- Prayer hall new -->
+      <div class="gallery-item" data-src="WhatsApp Image 2026-05-03 at 10.26.49.jpeg" data-caption="Main Prayer Hall — New Extension">
+        <img src="WhatsApp Image 2026-05-03 at 10.26.49.jpeg" alt="Main prayer hall with teal carpet" loading="lazy">
+        <div class="gallery-item-caption">Main Prayer Hall</div>
+        <div class="gallery-item-border"></div>
+      </div>
+
+      <!-- Prayer hall panoramic -->
+      <div class="gallery-item" data-src="WhatsApp Image 2026-05-03 at 10.26.00.jpeg" data-caption="Prayer Hall — Panoramic View">
+        <img src="WhatsApp Image 2026-05-03 at 10.26.00.jpeg" alt="Panoramic view of prayer hall" loading="lazy">
+        <div class="gallery-item-caption">Prayer Hall — Panoramic</div>
+        <div class="gallery-item-border"></div>
+      </div>
+
+      <!-- Interior original hall -->
+      <div class="gallery-item" data-src="WhatsApp Image 2026-05-03 at 10.26.34.jpeg" data-caption="Original Prayer Hall">
+        <img src="WhatsApp Image 2026-05-03 at 10.26.34.jpeg" alt="Prayer room with blue carpet" loading="lazy">
+        <div class="gallery-item-caption">Original Prayer Hall</div>
+        <div class="gallery-item-border"></div>
+      </div>
+
+      <!-- Blue carpet hall 2 -->
+      <div class="gallery-item" data-src="WhatsApp Image 2026-05-03 at 10.25.29.jpeg" data-caption="Men's Prayer Hall">
+        <img src="WhatsApp Image 2026-05-03 at 10.25.29.jpeg" alt="Men's prayer hall with blue carpet" loading="lazy">
+        <div class="gallery-item-caption">Men's Prayer Hall</div>
+        <div class="gallery-item-border"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section>
+    <p class="section-label" style="margin-bottom:0.4rem;">What We Stand For</p>
+    <h2 class="section-heading" style="margin-bottom:1.2rem;">Our Pillars</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">🕌</span>
+        <div class="value-title">Prayer &amp; Worship</div>
+        <p class="value-text">We offer all five daily prayers, Friday Jumu'ah, and Tarawih during Ramadan in a peaceful and welcoming environment.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">📖</span>
+        <div class="value-title">Education</div>
+        <p class="value-text">Our Madrassa provides Islamic education for children, teaching Qur'an recitation, Arabic, and Islamic studies.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🤝</span>
+        <div class="value-title">Community Service</div>
+        <p class="value-text">We support our community through charitable activities, collection appeals, and connecting people in need with resources.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🌿</span>
+        <div class="value-title">Funeral Services</div>
+        <p class="value-text">We provide complete Islamic funeral services including ghusl, janazah prayers, burial arrangements, and repatriation support.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-strip">
+    <h3>Visit Us</h3>
+    <p>
+      Islamic Cultural Centre Wembley<br>
+      Wembley, London<br>
+      Open 7 days a week · All prayers welcomed
+    </p>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close image viewer">✕</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <p class="lightbox-caption" id="lightbox-caption"></p>
+</div>
+
+<!-- DONATION TICKER -->
+<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener" aria-label="Donate to ICC Wembley">
+  <div class="donate-ticker-track">
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+  </div>
+</a>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="bn-item" aria-label="Home page">
+    <div class="bn-icon" aria-hidden="true">🕌</div>
+    <div>Home</div>
+  </a>
+  <a href="prayer-times.html" class="bn-item" aria-label="Prayer times">
+    <div class="bn-icon" aria-hidden="true">🕐</div>
+    <div>Prayers</div>
+  </a>
+  <a href="madrassa.html" class="bn-item" aria-label="Madrassa information">
+    <div class="bn-icon" aria-hidden="true">📖</div>
+    <div>Madrassa</div>
+  </a>
+  <a href="events.html" class="bn-item" aria-label="Events calendar">
+    <div class="bn-icon" aria-hidden="true">📅</div>
+    <div>Events</div>
+  </a>
+  <a href="announcements.html" class="bn-item" aria-label="Announcements">
+    <div class="bn-icon" aria-hidden="true">📢</div>
+    <div>News</div>
+  </a>
+  <a href="other.html" class="bn-item active" aria-label="Other services" aria-current="page">
+    <div class="bn-icon" aria-hidden="true">☰</div>
+    <div>Other</div>
+  </a>
+</nav>
+
+<script>
+// Auto-hide header on scroll
+(function(){
+  let lastY = window.scrollY || 0;
+  let ticking = false;
+  const TOP_SAFE_ZONE = 10;
+  const DELTA = 3;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const y = window.scrollY || 0;
+      const diff = y - lastY;
+      if(y < TOP_SAFE_ZONE){ document.body.classList.remove('header-hidden'); lastY = y; ticking = false; return; }
+      if(Math.abs(diff) < DELTA){ ticking = false; return; }
+      if(diff > 0){ document.body.classList.add('header-hidden'); } else { document.body.classList.remove('header-hidden'); }
+      lastY = y;
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+
+// Hero zoom on load
+window.addEventListener('load', () => {
+  document.getElementById('hero').classList.add('loaded');
+});
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => {
+    lightboxImg.src = item.dataset.src;
+    lightboxImg.alt = item.dataset.caption || '';
+    lightboxCaption.textContent = item.dataset.caption || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
