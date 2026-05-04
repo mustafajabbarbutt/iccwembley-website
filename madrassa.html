@@ -20,6 +20,8 @@
     --border: #DDDDDD;
     --bottom-nav-h: 70px;
     --top-header-h: 80px;
+    --donation-ticker-h: 50px;
+    --desktop-main-nav-h: 60px;
     --section-nav-h: 52px;
     --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
   }
@@ -37,6 +39,14 @@
     overflow-x: hidden;
     padding-top: calc(var(--top-header-h) + var(--section-nav-h));
     padding-bottom: calc(var(--bottom-nav-h) + 42px);
+  }
+
+  /* Desktop: adjust padding for new layout */
+  @media (min-width: 769px) {
+    body {
+      padding-top: calc(var(--top-header-h) + var(--donation-ticker-h) + var(--desktop-main-nav-h) + var(--section-nav-h));
+      padding-bottom: 20px;
+    }
   }
 
   /* Page load animations */
@@ -87,9 +97,11 @@
     opacity: 0;
   }
 
-  /* Hide header on scroll down */
-  body.header-hidden .top-header {
-    transform: translateY(-100%);
+  /* Hide header on scroll down - MOBILE ONLY */
+  @media (max-width: 768px) {
+    body.header-hidden .top-header {
+      transform: translateY(-100%);
+    }
   }
 
   @keyframes fadeIn {
@@ -132,10 +144,12 @@
     transition: font-size var(--transition);
   }
 
-  /* ── SECTION NAV ── */
-  /* Section nav slides to top when header hides */
-  body.header-hidden .section-nav {
-    top: 0;
+  /* ── SECTION NAV (TILE SELECTOR) ── */
+  /* Section nav slides to top when header hides - MOBILE ONLY */
+  @media (max-width: 768px) {
+    body.header-hidden .section-nav {
+      top: 0;
+    }
   }
 
   .section-nav {
@@ -144,13 +158,20 @@
     left: 0; right: 0;
     height: var(--section-nav-h);
     background: var(--cream);
-    z-index: 99;
+    z-index: 97;
     display: flex;
     align-items: stretch;
     overflow: hidden;
     border-bottom: 2px solid var(--gold);
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
     transition: top 0.3s ease;
+  }
+
+  /* Desktop: position below main nav */
+  @media (min-width: 769px) {
+    .section-nav {
+      top: calc(var(--top-header-h) + var(--donation-ticker-h) + var(--desktop-main-nav-h));
+    }
   }
 
 
@@ -176,6 +197,14 @@
     position: relative;
     text-align: center;
     overflow: hidden;
+  }
+
+  /* Desktop: larger icons and text */
+  @media (min-width: 769px) {
+    .sn-item {
+      gap: 6px;
+      padding: 0 8px;
+    }
   }
 
   .sn-item:last-child { border-right: none; }
@@ -206,6 +235,13 @@
     line-height: 1;
   }
 
+  /* Desktop: larger icons */
+  @media (min-width: 769px) {
+    .sn-icon {
+      font-size: 1.5rem;
+    }
+  }
+
   .sn-label {
     font-size: 0.58rem;
     font-weight: 700;
@@ -213,6 +249,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
+  }
+
+  /* Desktop: larger text */
+  @media (min-width: 769px) {
+    .sn-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
   }
 
   .book-price {
@@ -240,6 +284,20 @@
     z-index: 99;
   }
 
+  /* Desktop: move to top below donation ticker */
+  @media (min-width: 769px) {
+    .bottom-nav {
+      top: calc(var(--top-header-h) + var(--donation-ticker-h));
+      bottom: auto;
+      height: var(--desktop-main-nav-h);
+      border-top: none;
+      border-bottom: 2px solid var(--red);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      background: var(--white);
+      z-index: 98;
+    }
+  }
+
   .bn-item {
     flex: 1;
     display: flex;
@@ -255,6 +313,20 @@
     position: relative;
   }
 
+  /* Desktop: horizontal layout with text only */
+  @media (min-width: 769px) {
+    .bn-item {
+      flex-direction: row;
+      font-size: 0.9rem;
+      gap: 0;
+      padding: 0 20px;
+    }
+
+    .bn-icon {
+      display: none;
+    }
+  }
+
   .bn-item::before {
     content: '';
     position: absolute;
@@ -263,6 +335,14 @@
     background: var(--red);
     transform: scaleX(0);
     transition: var(--transition);
+  }
+
+  /* Desktop: move indicator to bottom */
+  @media (min-width: 769px) {
+    .bn-item::before {
+      top: auto;
+      bottom: 0;
+    }
   }
 
   .bn-item.active {
@@ -283,7 +363,7 @@
     line-height: 1;
   }
 
-  /* ── DONATION TICKER (BOTTOM MARQUEE) ── */
+  /* ── DONATION TICKER (BOTTOM ON MOBILE, TOP ON DESKTOP) ── */
   .donate-ticker{
     position:fixed;
     bottom: var(--bottom-nav-h);
@@ -298,6 +378,20 @@
     text-decoration:none;
     -webkit-tap-highlight-color:transparent;
   }
+
+  /* Desktop: position below header, above main nav */
+  @media (min-width: 769px) {
+    .donate-ticker {
+      top: var(--top-header-h);
+      bottom: auto;
+      height: var(--donation-ticker-h);
+      border-top: none;
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      z-index: 99;
+    }
+  }
+
   .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
   .donate-ticker-track{
     display:flex;align-items:center;
@@ -1807,7 +1901,7 @@
 
 
 <script>
-// ── SCROLL EFFECT FOR HEADER (hides on scroll down, section nav stays visible) ──
+// ── SCROLL EFFECT FOR HEADER (hides on scroll down on MOBILE only) ──
 (function(){
   const header = document.getElementById('topHeader');
   let lastY = window.scrollY;
@@ -1820,11 +1914,17 @@
     if (y > 50) header.classList.add('scrolled');
     else header.classList.remove('scrolled');
 
-    if (y < TOP_SAFE_ZONE) {
+    // Only apply hide-on-scroll behavior on mobile
+    if (window.innerWidth <= 768) {
+      if (y < TOP_SAFE_ZONE) {
+        document.body.classList.remove('header-hidden');
+      } else if (Math.abs(y - lastY) >= DELTA) {
+        if (y > lastY) document.body.classList.add('header-hidden');
+        else document.body.classList.remove('header-hidden');
+      }
+    } else {
+      // Desktop: always show header
       document.body.classList.remove('header-hidden');
-    } else if (Math.abs(y - lastY) >= DELTA) {
-      if (y > lastY) document.body.classList.add('header-hidden');
-      else document.body.classList.remove('header-hidden');
     }
     lastY = y;
   }, { passive: true });
@@ -2003,7 +2103,16 @@
 
 // ── SECTION NAV: SMOOTH SCROLL WITH OFFSET & SCROLL-SPY ──
 (function(){
-  const OFFSET = 80 + 44 + 8; // top-header + section-nav + a little breathing room
+  // Calculate offset based on screen size
+  function getOffset() {
+    if (window.innerWidth > 768) {
+      // Desktop: top-header + donation-ticker + main-nav + section-nav + breathing room
+      return 80 + 50 + 60 + 52 + 8;
+    } else {
+      // Mobile: top-header + section-nav + breathing room
+      return 80 + 52 + 8;
+    }
+  }
 
   // Smooth scroll with offset when clicking nav items
   document.querySelectorAll('.sn-item').forEach(link => {
@@ -2012,6 +2121,7 @@
       const target = document.querySelector(href);
       if(!target) return;
       e.preventDefault();
+      const OFFSET = getOffset();
       const top = target.getBoundingClientRect().top + window.scrollY - OFFSET;
       window.scrollTo({ top, behavior: 'smooth' });
     });
@@ -2029,6 +2139,7 @@
   ];
 
   function updateActiveNav(){
+    const OFFSET = getOffset();
     const scrollY = window.scrollY + OFFSET + 20;
     let current = sections[0].href;
     sections.forEach(s => {

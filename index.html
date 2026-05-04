@@ -18,6 +18,7 @@
     --text-light: #6B5B4E;
     --bottom-nav-h: 70px;
     --top-header-h: 80px;
+    --desktop-nav-h: 50px;
     --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
   }
 
@@ -37,6 +38,14 @@
     padding-top: var(--top-header-h);
     padding-bottom: calc(var(--bottom-nav-h) + 42px);
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Desktop: add space for top navigation and donation ticker */
+  @media (min-width: 768px) {
+    body {
+      padding-top: calc(var(--top-header-h) + var(--desktop-nav-h) + 42px); /* Added 42px for ticker */
+      padding-bottom: 42px; /* Remove bottom nav padding on desktop */
+    }
   }
 
   /* ── SKIP LINK FOR ACCESSIBILITY ── */
@@ -182,6 +191,13 @@
 body.header-hidden .top-header {
   transform: translateY(-100%);
 }
+
+/* Desktop: also hide the desktop nav when header is hidden */
+@media (min-width: 768px) {
+  body.header-hidden .desktop-nav {
+    transform: translateY(-100%);
+  }
+}
  
 /* Logo stays exactly 72×72 — unchanged */
 .header-logo {
@@ -231,6 +247,82 @@ body.header-hidden .top-header {
   flex-shrink: 1;
 }
 
+  /* ── DESKTOP TOP NAVIGATION (NEW) ── */
+  .desktop-nav {
+    display: none; /* Hidden on mobile */
+  }
+
+  @media (min-width: 768px) {
+    .desktop-nav {
+      display: flex;
+      position: fixed;
+      top: calc(var(--top-header-h) + 42px); /* Below header + donation ticker */
+      left: 0;
+      right: 0;
+      height: var(--desktop-nav-h);
+      background: white;
+      border-bottom: 2px solid var(--gold);
+      z-index: 98; /* Below ticker (99) */
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .desktop-nav a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      border-right: 1px solid rgba(201, 151, 58, 0.2);
+      position: relative;
+    }
+
+    .desktop-nav a:last-child {
+      border-right: none;
+    }
+
+    .desktop-nav a:hover {
+      background: var(--cream);
+      color: var(--red);
+    }
+
+    .desktop-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+    }
+
+    .desktop-nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Active state for current page */
+    .desktop-nav a.active {
+      color: var(--red);
+      background: var(--cream);
+    }
+
+    .desktop-nav a.active::after {
+      transform: scaleX(1);
+    }
+  }
+
   /* WhatsApp button */
   .whatsapp-float {
     position: fixed;
@@ -250,6 +342,12 @@ body.header-hidden .top-header {
                 box-shadow 0.3s ease;
     text-decoration: none;
     opacity: 1;
+  }
+
+  @media (min-width: 768px) {
+    .whatsapp-float {
+      bottom: 12px; /* On desktop, no bottom nav */
+    }
   }
 
   .whatsapp-float:hover {
@@ -864,6 +962,13 @@ body.header-hidden .top-header {
     box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
   }
 
+  /* Hide bottom nav on desktop */
+  @media (min-width: 768px) {
+    .bottom-nav {
+      display: none;
+    }
+  }
+
   .bn-item {
     display: flex;
     flex-direction: column;
@@ -957,6 +1062,18 @@ body.header-hidden .top-header {
     text-decoration:none;
     -webkit-tap-highlight-color:transparent;
   }
+
+  /* Desktop: move donation ticker between header and navigation */
+  @media (min-width: 768px) {
+    .donate-ticker {
+      top: var(--top-header-h); /* Right below header */
+      bottom: auto;
+      border-top: none;
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      z-index: 99; /* Above nav (98) but below header (100) */
+    }
+  }
   .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
   .donate-ticker-track{
     display:flex;align-items:center;
@@ -1041,6 +1158,16 @@ body.header-hidden .top-header {
     <div class="header-title">Islamic Cultural Centre <span style="color: var(--gold-light);">Wembley</span></div>
   </div>
 </header>
+
+<!-- Desktop Navigation (appears only on desktop, hidden on mobile) -->
+<nav class="desktop-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="active">Home</a>
+  <a href="prayer-times.html">Prayer Times</a>
+  <a href="madrassa.html">Madrassa</a>
+  <a href="events.html">Events</a>
+  <a href="announcements.html">Announcements</a>
+  <a href="other.html">Other</a>
+</nav>
 
 
 <a href="https://wa.me/442089033760" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">

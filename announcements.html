@@ -19,6 +19,7 @@
     --bottom-nav-h: 70px;
     --ticker-h: 42px;
     --top-header-h: 80px;
+    --top-nav-h: 50px;
     --safe-bottom: env(safe-area-inset-bottom, 0px);
     --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
   }
@@ -86,9 +87,6 @@
     padding: 14px 20px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.15);
     border-bottom: 3px solid var(--gold);
-    transform: translateY(0);
-    transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
-    will-change: transform;
     opacity: 0;
     animation: fadeInHeader 0.6s ease-out forwards;
   }
@@ -102,10 +100,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  body.header-hidden .top-header {
-    transform: translateY(-100%);
   }
 
   .header-logo {
@@ -469,6 +463,7 @@
     display: inline-flex;
     align-items: center;
     padding: 0 1.75rem;
+    gap: 0.5rem;
     color: #FFFFFF;
     font-size: 0.88rem;
     font-weight: 600;
@@ -630,6 +625,103 @@
     background: #016a4b;
   }
 
+  /* ── DESKTOP NAVIGATION (like main website) ── */
+  
+  /* Hide top nav on mobile by default */
+  .top-nav {
+    display: none;
+  }
+  
+  @media (min-width: 769px) {
+    /* Desktop body padding to account for fixed header, ticker, and top nav */
+    body {
+      padding-top: calc(var(--top-header-h) + var(--ticker-h) + var(--top-nav-h));
+      padding-bottom: 20px; /* Remove bottom nav padding on desktop */
+    }
+
+    /* Hide mobile bottom navigation on desktop */
+    .bottom-nav {
+      display: none;
+    }
+
+    /* Position donation ticker below header */
+    .donate-ticker {
+      top: var(--top-header-h);
+      bottom: auto;
+      z-index: 99;
+    }
+
+    /* Desktop top navigation - matching main website style */
+    .top-nav {
+      display: flex;
+      position: fixed;
+      top: calc(var(--top-header-h) + var(--ticker-h));
+      left: 0;
+      right: 0;
+      height: var(--top-nav-h);
+      background: white;
+      border-bottom: 2px solid var(--gold);
+      z-index: 98;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .top-nav a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      border-right: 1px solid rgba(201, 151, 58, 0.2);
+      position: relative;
+    }
+
+    .top-nav a:last-child {
+      border-right: none;
+    }
+
+    .top-nav a:hover {
+      background: var(--cream);
+      color: var(--red);
+    }
+
+    .top-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+    }
+
+    .top-nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Active state for current page */
+    .top-nav a.active {
+      color: var(--red);
+      background: var(--cream);
+    }
+
+    .top-nav a.active::after {
+      transform: scaleX(1);
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -646,6 +738,40 @@
     <span class="header-title">Announcements</span>
   </div>
 </header>
+
+<!-- DONATION TICKER -->
+<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener" aria-label="Donate to ICC Wembley">
+  <div class="donate-ticker-track">
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+
+    <!-- Duplicate for seamless loop -->
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+  </div>
+</a>
+
+<!-- TOP NAV (Desktop only) -->
+<nav class="top-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="prayer-times.html">Prayer Times</a>
+  <a href="madrassa.html">Madrassa</a>
+  <a href="events.html">Events</a>
+  <a href="announcements.html" class="active" aria-current="page">Announcements</a>
+  <a href="other.html">Other</a>
+</nav>
 
 <!-- Main Content -->
 <main class="main-content" id="main-content">
@@ -805,30 +931,6 @@
 
 </main>
 
-<!-- DONATION TICKER (BOTTOM MARQUEE) -->
-<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener" aria-label="Donate to ICC Wembley">
-  <div class="donate-ticker-track">
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-
-    <!-- Duplicate for seamless loop -->
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item">Your <strong>Lillah</strong> supports our community — Tap to give<span class="donate-ticker-cta">Contribute</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-  </div>
-</a>
-
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
   <a href="index.html" class="bn-item" aria-label="Home page">
@@ -858,7 +960,7 @@
 </nav>
 
 <script>
-// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP ──
+// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP (MOBILE ONLY) ──
 (function(){
   let lastY = window.scrollY || 0;
   let ticking = false;
@@ -866,6 +968,9 @@
   const DELTA = 8;
 
   function onScroll(){
+    // Skip on desktop (769px and above)
+    if(window.innerWidth >= 769) return;
+    
     if(ticking) return;
     ticking = true;
     window.requestAnimationFrame(() => {
@@ -922,9 +1027,12 @@ function toggleCard(card) {
   }
 }
 
-// ── FIX TICKER POSITION BASED ON ACTUAL NAV HEIGHT ──
+// ── FIX TICKER POSITION BASED ON ACTUAL NAV HEIGHT (MOBILE ONLY) ──
 (function() {
   function fixTickerPosition() {
+    // Skip on desktop (769px and above)
+    if(window.innerWidth >= 769) return;
+    
     const nav = document.querySelector('.bottom-nav');
     const ticker = document.querySelector('.donate-ticker');
     if (!nav || !ticker) return;

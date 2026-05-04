@@ -122,7 +122,7 @@ body.header-hidden .top-header {
   line-height: 1.2;
 }
 
-/* ── BOTTOM NAV ── */
+/* ── BOTTOM NAV (mobile default) ── */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -183,7 +183,65 @@ body.header-hidden .top-header {
   line-height: 1;
 }
 
-/* ── DONATION TICKER (BOTTOM MARQUEE) ── */
+/* ── DESKTOP NAV OVERRIDES ── */
+@media (min-width: 768px) {
+  :root {
+    --desktop-ticker-h: 42px;
+    --desktop-nav-h: 48px;
+  }
+
+  /* Shift body padding to account for header + ticker + nav at top */
+  body {
+    padding-top: calc(var(--top-header-h) + var(--desktop-ticker-h) + var(--desktop-nav-h));
+    padding-bottom: 20px;
+  }
+
+  /* Move nav to top, just below ticker */
+  .bottom-nav {
+    position: fixed;
+    top: calc(var(--top-header-h) + var(--desktop-ticker-h));
+    bottom: auto;
+    height: var(--desktop-nav-h);
+    border-top: none;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: var(--white);
+    z-index: 98;
+    /* Hide on header-hidden */
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+
+
+
+  /* Larger text, horizontal layout */
+  .bn-item {
+    flex-direction: row;
+    font-size: 0.85rem;
+    font-weight: 700;
+    gap: 0;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  /* Active indicator on desktop: bottom border instead of top */
+  .bn-item::before {
+    top: auto;
+    bottom: 0;
+    height: 3px;
+  }
+
+  .bn-item.active {
+    color: var(--red);
+  }
+
+  /* Hide icons on desktop */
+  .bn-icon {
+    display: none;
+  }
+}
+
+/* ── DONATION TICKER (BOTTOM MARQUEE — mobile default) ── */
 .donate-ticker{
   position:fixed;
   bottom: var(--bottom-nav-h);
@@ -197,6 +255,23 @@ body.header-hidden .top-header {
   box-shadow:0 -2px 12px rgba(0,0,0,0.2);
   text-decoration:none;
   -webkit-tap-highlight-color:transparent;
+}
+
+/* ── DESKTOP TICKER: move to top, below header ── */
+@media (min-width: 768px) {
+  .donate-ticker {
+    position: fixed;
+    top: var(--top-header-h);
+    bottom: auto;
+    border-top: none;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 99;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+
+
 }
 .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
 .donate-ticker-track{
@@ -1110,8 +1185,11 @@ window.addEventListener('load', function() {
   }
 });
 
-// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP ──
+// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP (mobile only) ──
 (function(){
+  // On desktop (768px+) the header is always fixed — no auto-hide
+  if(window.innerWidth >= 768) return;
+
   let lastY = window.scrollY || 0;
   let ticking = false;
   const TOP_SAFE_ZONE = 80;   // always show header near top of page

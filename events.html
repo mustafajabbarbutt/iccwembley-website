@@ -38,6 +38,17 @@
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Desktop: different padding */
+  @media (min-width: 900px) {
+    html {
+      scroll-padding-top: 182px; /* 80px header + 42px ticker + 60px nav */
+    }
+    body {
+      padding-top: 182px; /* 80px header + 42px ticker + 60px nav */
+      padding-bottom: 20px;
+    }
+  }
+
   /* ── TOP HEADER ── */
   .top-header {
     position: fixed;
@@ -70,9 +81,11 @@
     }
   }
 
-  /* ── AUTO-HIDE TOP HEADER ON SCROLL DOWN ── */
-  body.header-hidden .top-header {
-    transform: translateY(-100%);
+  /* Only on mobile: hide header on scroll */
+  @media (max-width: 899px) {
+    body.header-hidden .top-header {
+      transform: translateY(-100%);
+    }
   }
 
   .header-logo {
@@ -110,6 +123,207 @@
     line-height: 1.1;
   }
 
+  /* ── DONATION TICKER ── */
+  .donate-ticker{
+    height:42px;
+    background:linear-gradient(90deg, #1F7A4A 0%, #25A35E 50%, #1F7A4A 100%);
+    overflow:hidden;
+    cursor:pointer;
+    display:flex;align-items:center;
+    box-shadow:0 -2px 12px rgba(0,0,0,0.2);
+    text-decoration:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  
+  /* Mobile: fixed at bottom above bottom nav */
+  @media (max-width: 899px) {
+    .donate-ticker {
+      position:fixed;
+      bottom: var(--bottom-nav-h);
+      left:0;right:0;z-index:300;
+      border-top:2px solid var(--gold);
+    }
+  }
+  
+  /* Desktop: fixed below top header */
+  @media (min-width: 900px) {
+    .donate-ticker {
+      position: fixed;
+      top: var(--top-header-h);
+      left: 0;
+      right: 0;
+      z-index: 99;
+      border-bottom: 2px solid var(--gold);
+    }
+  }
+  
+  .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
+  .donate-ticker-track{
+    display:flex;align-items:center;
+    white-space:nowrap;
+    animation:dtScroll 35s linear infinite;
+    will-change:transform;
+  }
+  .donate-ticker:hover .donate-ticker-track,
+  .donate-ticker:active .donate-ticker-track{animation-play-state:paused;}
+  .donate-ticker-item{
+    display:inline-flex;align-items:center;gap:0.65rem;
+    padding:0 1.75rem;
+    color:#FFFFFF;
+    font-size:0.88rem;font-weight:600;letter-spacing:0.03em;
+    font-family:'Nunito Sans',sans-serif;
+  }
+  .donate-ticker-item strong{color:#FFE98A;font-weight:700;}
+  .donate-ticker-item .dt-heart{
+    display:inline-block;color:#FFE98A;font-size:1rem;line-height:1;
+    animation:dtPulse 1.8s ease-in-out infinite;
+  }
+  .donate-ticker-item .dt-sep{color:rgba(255,233,138,0.6);font-size:1.1rem;}
+  .donate-ticker-cta{
+    background:#FFE98A;color:#1F7A4A;
+    padding:0.22rem 0.7rem;border-radius:12px;
+    font-size:0.72rem;font-weight:800;text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  @keyframes dtScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @keyframes dtPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+  }
+
+  /* ── TOP NAVIGATION (Desktop only) ── */
+  .top-nav {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .top-nav {
+      position: fixed;
+      top: 122px; /* 80px header + 42px ticker */
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: white;
+      z-index: 98;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .top-nav a {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border-right: 1px solid rgba(201, 151, 58, 0.2);
+      position: relative;
+    }
+
+    .top-nav a:last-child {
+      border-right: none;
+    }
+
+    .top-nav a:hover {
+      background: var(--cream);
+      color: var(--red);
+    }
+
+    .top-nav a.active {
+      background: linear-gradient(135deg, var(--red-dark), var(--red));
+      color: white;
+      font-weight: 700;
+    }
+
+    .top-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold-light);
+    }
+  }
+
+  /* ── BOTTOM NAV (Mobile only) ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-nav-h);
+    background: var(--white);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 95;
+    padding: 0 8px;
+  }
+
+  @media (min-width: 900px) {
+    .bottom-nav {
+      display: none;
+    }
+  }
+
+  .bn-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 8px 4px;
+    transition: color 0.2s;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .bn-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: var(--transition);
+  }
+
+  .bn-item:hover {
+    background: rgba(0,0,0,0.03);
+  }
+
+  .bn-item.active {
+    color: var(--red);
+    background: var(--cream);
+  }
+
+  .bn-item.active::before {
+    transform: scaleX(1);
+  }
+
+  .bn-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
 
   /* ── MAIN CONTENT ── */
   .main-content {
@@ -420,120 +634,6 @@
     font-size: 1rem;
   }
 
-  /* ── DONATION TICKER (BOTTOM MARQUEE) ── */
-  .donate-ticker{
-    position:fixed;
-    bottom: var(--bottom-nav-h);
-    left:0;right:0;z-index:300;
-    height:42px;
-    background:linear-gradient(90deg, #1F7A4A 0%, #25A35E 50%, #1F7A4A 100%);
-    border-top:2px solid var(--gold);
-    overflow:hidden;
-    cursor:pointer;
-    display:flex;align-items:center;
-    box-shadow:0 -2px 12px rgba(0,0,0,0.2);
-    text-decoration:none;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
-  .donate-ticker-track{
-    display:flex;align-items:center;
-    white-space:nowrap;
-    animation:dtScroll 35s linear infinite;
-    will-change:transform;
-  }
-  .donate-ticker:hover .donate-ticker-track,
-  .donate-ticker:active .donate-ticker-track{animation-play-state:paused;}
-  .donate-ticker-item{
-    display:inline-flex;align-items:center;gap:0.65rem;
-    padding:0 1.75rem;
-    color:#FFFFFF;
-    font-size:0.88rem;font-weight:600;letter-spacing:0.03em;
-    font-family:'Nunito Sans',sans-serif;
-  }
-  .donate-ticker-item strong{color:#FFE98A;font-weight:700;}
-  .donate-ticker-item .dt-heart{
-    display:inline-block;color:#FFE98A;font-size:1rem;line-height:1;
-    animation:dtPulse 1.8s ease-in-out infinite;
-  }
-  .donate-ticker-item .dt-sep{color:rgba(255,233,138,0.6);font-size:1.1rem;}
-  .donate-ticker-cta{
-    background:#FFE98A;color:#1F7A4A;
-    padding:0.22rem 0.7rem;border-radius:12px;
-    font-size:0.72rem;font-weight:800;text-transform:uppercase;
-    letter-spacing:0.08em;
-  }
-  @keyframes dtScroll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-  @keyframes dtPulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.25);}
-  }
-
-  /* ── BOTTOM NAV ── */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--bottom-nav-h);
-    background: var(--white);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    z-index: 95;
-    padding: 0 8px;
-  }
-
-  .bn-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: var(--text-light);
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 8px 4px;
-    transition: color 0.2s;
-    border-radius: 8px;
-    position: relative;
-  }
-
-  .bn-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--red);
-    transform: scaleX(0);
-    transition: var(--transition);
-  }
-
-  .bn-item:hover {
-    background: rgba(0,0,0,0.03);
-  }
-
-  .bn-item.active {
-    color: var(--red);
-    background: var(--cream);
-  }
-
-  .bn-item.active::before {
-    transform: scaleX(1);
-  }
-
-  .bn-icon {
-    font-size: 1.5rem;
-    margin-bottom: 4px;
-  }
-
   /* ── MODAL ── */
   .modal-overlay {
     position: fixed;
@@ -714,7 +814,35 @@
   </div>
 </header>
 
+<!-- DONATION TICKER -->
+<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener">
+  <div class="donate-ticker-track">
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    
+    <!-- Duplicate for seamless loop -->
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
+    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
+  </div>
+</a>
 
+<!-- TOP NAVIGATION (Desktop only) -->
+<nav class="top-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="prayer-times.html">Prayers</a>
+  <a href="madrassa.html">Madrassa</a>
+  <a href="events.html" class="active" aria-current="page">Events</a>
+  <a href="announcements.html">News</a>
+  <a href="other.html">Other</a>
+</nav>
 
 <!-- MAIN CONTENT -->
 <main class="main-content">
@@ -751,27 +879,7 @@
 
 </main>
 
-<!-- DONATION TICKER -->
-<a class="donate-ticker" href="https://pay.easydonate.uk/iccwembley" target="_blank" rel="noopener">
-  <div class="donate-ticker-track">
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    
-    <!-- Duplicate for seamless loop -->
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item">The Prophet ﷺ said: <strong>"Charity does not decrease wealth"</strong> — Sahih Muslim<span class="donate-ticker-cta">Give Lillah</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
-    <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-  </div>
-</a>
-
-<!-- BOTTOM NAV -->
+<!-- BOTTOM NAV (Mobile only) -->
 <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
   <a href="index.html" class="bn-item" aria-label="Home page">
     <div class="bn-icon" aria-hidden="true">🕌</div>
@@ -980,8 +1088,11 @@ document.getElementById('modalShare').addEventListener('click', async () => {
   }
 });
 
-// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP ──
+// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN (MOBILE ONLY), SHOW ON SCROLL UP ──
 (function(){
+  // Only run on mobile
+  if (window.innerWidth >= 900) return;
+  
   let lastY = window.scrollY || 0;
   let ticking = false;
   const TOP_SAFE_ZONE = 10;    // Show header when near top
