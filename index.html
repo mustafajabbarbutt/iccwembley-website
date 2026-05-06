@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Islamic Cultural Centre Wembley - Today's prayer times, Jamaat timings, and contact information">
-<title>ICC Wembley — Prayer Times</title>
+<title>Islamic Cultural Centre Wembley - Home Page</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -419,19 +419,19 @@ body.header-hidden .top-header {
 
   .prayer-card-header {
     background: linear-gradient(135deg, var(--red-dark), var(--red));
-    padding: 10px 14px 8px;
+    padding: 14px 16px 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 6px;
     border-bottom: 3px solid var(--gold);
   }
 
   .prayer-card-header h2 {
     font-family: 'Playfair Display', serif;
     color: var(--white);
-    font-size: clamp(1.2rem, 4.2vw, 1.7rem);
+    font-size: clamp(1.4rem, 5vw, 2rem);
     font-weight: 700;
     white-space: nowrap;
     margin: 0;
@@ -440,16 +440,55 @@ body.header-hidden .top-header {
     line-height: 1.1;
   }
 
+  /* ── PDF DOWNLOAD BUTTON ── */
+  .pdf-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    color: var(--gold-light);
+    border: 1.5px solid rgba(201,151,58,0.6);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  .pdf-download-btn:hover {
+    background: rgba(201,151,58,0.25);
+    border-color: var(--gold-light);
+    transform: scale(1.04);
+  }
+
+  .pdf-download-btn:active {
+    transform: scale(0.97);
+  }
+
+  .pdf-download-btn svg {
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+
   .prayer-card-header .dates {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
   }
 
   .prayer-card-header .gregorian {
-    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    font-size: clamp(1.15rem, 4vw, 1.5rem);
     font-weight: 700;
     color: var(--gold-light);
     white-space: nowrap;
@@ -459,13 +498,13 @@ body.header-hidden .top-header {
 
   .prayer-card-header .date-divider {
     color: rgba(255,255,255,0.5);
-    font-size: clamp(0.9rem, 2.7vw, 1.15rem);
+    font-size: clamp(1rem, 3vw, 1.3rem);
     flex-shrink: 0;
   }
 
   .prayer-card-header .hijri-date {
     font-family: 'Amiri', serif;
-    font-size: clamp(1.05rem, 4vw, 1.45rem);
+    font-size: clamp(1.2rem, 4.5vw, 1.65rem);
     color: rgba(255,255,255,0.95);
     white-space: nowrap;
     font-weight: 400;
@@ -503,11 +542,11 @@ body.header-hidden .top-header {
   }
 
   .prayer-table thead th {
-    padding: clamp(6px, 1.8vw, 9px) clamp(4px, 1vw, 8px);
+    padding: clamp(6px, 2vw, 10px) clamp(4px, 1vw, 8px);
     text-align: center;
-    font-size: clamp(0.6rem, 1.7vw, 0.72rem);
+    font-size: clamp(0.6rem, 1.8vw, 0.75rem);
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--red);
   }
@@ -522,7 +561,7 @@ body.header-hidden .top-header {
   }
 
   .prayer-table tbody td {
-    padding: clamp(8px, 2vw, 11px) clamp(4px, 1vw, 8px);
+    padding: clamp(8px, 2.5vw, 12px) clamp(4px, 1vw, 8px);
     text-align: center;
     color: var(--text);
     border-right: 1px solid #f5ede0;
@@ -550,7 +589,7 @@ body.header-hidden .top-header {
     text-align: left;
     font-weight: 700;
     color: var(--text);
-    font-size: clamp(0.72rem, 2vw, 0.85rem);
+    font-size: clamp(0.75rem, 2.1vw, 0.9rem);
     letter-spacing: 0.01em;
     text-transform: uppercase;
     font-family: 'Inter', sans-serif;
@@ -560,7 +599,7 @@ body.header-hidden .top-header {
 
   .prayer-table tbody td.prayer-name .arabic {
     font-family: 'Amiri', serif;
-    font-size: clamp(0.95rem, 2.6vw, 1.1rem);
+    font-size: clamp(0.95rem, 2.7vw, 1.15rem);
     color: var(--gold);
     text-transform: none;
     font-weight: 500;
@@ -570,7 +609,7 @@ body.header-hidden .top-header {
 
   .prayer-table tbody td.time {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.88rem, 2.5vw, 1.05rem);
+    font-size: clamp(0.9rem, 2.7vw, 1.2rem);
     font-weight: 600;
     position: relative;
     letter-spacing: 0.01em;
@@ -603,7 +642,7 @@ body.header-hidden .top-header {
   .prayer-table tbody tr.next-prayer td.prayer-name {
     color: var(--red);
     font-weight: 800;
-    font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem);
   }
 
   .prayer-table tbody tr.next-prayer td.time {
@@ -624,7 +663,7 @@ body.header-hidden .top-header {
   }
 
   .prayer-table tbody tr.sunrise-row td {
-    padding: clamp(12px, 2.8vw, 16px) clamp(6px, 1.5vw, 12px);
+    padding: clamp(8px, 2.3vw, 12px) clamp(4px, 1vw, 8px);
   }
 
   /* Makrooh time warning */
@@ -678,24 +717,24 @@ body.header-hidden .top-header {
   .prayer-table tbody tr.sunrise-row td.prayer-name {
     color: var(--gold);
     font-weight: 600;
-    font-size: clamp(0.8rem, 2.3vw, 0.95rem);
+    font-size: clamp(0.75rem, 2.1vw, 0.9rem);
   }
 
   .prayer-table tbody tr.sunrise-row td.time {
     color: var(--gold);
-    font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem);
   }
 
   .ishraq-label {
     display: inline-block;
-    font-size: clamp(0.7rem, 1.9vw, 0.8rem);
+    font-size: clamp(0.65rem, 1.7vw, 0.75rem);
     font-weight: 700;
     color: var(--gold);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     font-family: 'Inter', sans-serif;
-    padding: 2px 8px;
+    padding: 2px 6px;
     background: rgba(201, 151, 58, 0.12);
     border-radius: 4px;
     border-left: 3px solid var(--gold);
@@ -703,10 +742,10 @@ body.header-hidden .top-header {
 
   #ishraq-time {
     display: block;
-    font-size: clamp(1rem, 2.8vw, 1.2rem);
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     font-weight: 700;
     color: var(--gold);
-    margin-top: 6px;
+    margin-top: 4px;
     text-shadow: 0 1px 2px rgba(0,0,0,0.05);
   }
 
@@ -1244,6 +1283,12 @@ body.header-hidden .top-header {
         <div class="date-divider">·</div>
         <div class="hijri-date" id="hijri-date"></div>
       </div>
+      <a id="pdf-download-btn" class="pdf-download-btn" href="#" download aria-label="Download this month's prayer timetable PDF">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-7 4v-2h14v2H5z"/>
+        </svg>
+        <span id="pdf-btn-label">Timetable PDF</span>
+      </a>
     </div>
     
     <!-- COUNTDOWN TIMER -->
@@ -1275,7 +1320,7 @@ body.header-hidden .top-header {
             <td class="time">
               <span class="ishraq-label">✦ Ishraq</span>
               <span id="ishraq-time"></span>
-              <span style="display: block; font-size: clamp(0.65rem, 1.6vw, 0.72rem); color: var(--text-light); margin-top: 3px; font-style: italic; opacity: 0.85;">+15 min after sunrise</span>
+              <span style="display: block; font-size: clamp(0.6rem, 1.4vw, 0.68rem); color: var(--text-light); margin-top: 2px; font-style: italic; opacity: 0.85;">+15 min after sunrise</span>
               <span class="makrooh-warning" id="makrooh-warning">⚠ Makrooh Time</span>
             </td>
           </tr>
@@ -1333,12 +1378,22 @@ body.header-hidden .top-header {
       <div class="contact-person-phone">
         📱 <a href="tel:02089033760">020 8903 3760</a>
       </div>
+      <div class="contact-person-phone">
+        ✉️ <a href="mailto:info@iccwembley.co.uk">info@iccwembley.co.uk</a>
+      </div>
     </div>
     <div class="contact-person">
       <div class="contact-person-name">Abdullah Hasan Salloo</div>
       <div class="contact-person-role">Imam / Minister of Religion</div>
       <div class="contact-person-phone">
         ✉️ <a href="mailto:imam@iccwembley.co.uk">imam@iccwembley.co.uk</a>
+      </div>
+    </div>
+    <div class="contact-person">
+      <div class="contact-person-name">School</div>
+      <div class="contact-person-role">Madrassa Enquiries</div>
+      <div class="contact-person-phone">
+        ✉️ <a href="mailto:school@iccwembley.co.uk">school@iccwembley.co.uk</a>
       </div>
     </div>
     <div class="contact-person">
@@ -1694,6 +1749,45 @@ function updateCountdown() {
     }
   }
 }
+
+// ── PDF DOWNLOAD BUTTON — auto-updates to current month ──
+(function() {
+  const MONTH_NAMES = [
+    'january','february','march','april','may','june',
+    'july','august','september','october','november','december'
+  ];
+  const MONTH_DISPLAY = [
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December'
+  ];
+
+  function updatePdfBtn() {
+    const now = new Date();
+    const month = MONTH_NAMES[now.getMonth()];
+    const year  = now.getFullYear();
+    // Expected file naming convention: prayer-times-may-2026.pdf
+    // Change the path below to match where you store your PDFs
+    const pdfPath = `pdfs/prayer-times-${month}-${year}.pdf`;
+    const btn   = document.getElementById('pdf-download-btn');
+    const label = document.getElementById('pdf-btn-label');
+    if (btn)   { btn.href = pdfPath; btn.setAttribute('download', `ICC-Wembley-Prayer-Times-${MONTH_DISPLAY[now.getMonth()]}-${year}.pdf`); }
+    if (label) { label.textContent = `${MONTH_DISPLAY[now.getMonth()]} Timetable`; }
+  }
+
+  updatePdfBtn();
+
+  // Re-check at midnight in case the page is left open across month boundary
+  function scheduleMonthCheck() {
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth() + 1, 1); // first of next month
+    const msUntilMidnight = midnight - now;
+    setTimeout(function() {
+      updatePdfBtn();
+      scheduleMonthCheck(); // reschedule for the following month
+    }, msUntilMidnight);
+  }
+  scheduleMonthCheck();
+})();
 
 updateDisplay();
 
