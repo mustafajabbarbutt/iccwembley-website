@@ -773,6 +773,11 @@ body.header-hidden .top-header {
     margin: 6px 0;
     text-align: center;
     box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .countdown-label {
@@ -782,7 +787,7 @@ body.header-hidden .top-header {
     color: var(--text-light);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin-bottom: 1px;
+    margin-bottom: 0;
   }
 
   .countdown-time {
@@ -792,6 +797,9 @@ body.header-hidden .top-header {
     color: var(--red);
     text-shadow: none;
     letter-spacing: 0.02em;
+    padding: 0 8px;
+    border-left: 1px solid rgba(139,26,26,0.2);
+    border-right: 1px solid rgba(139,26,26,0.2);
   }
 
   .countdown-prayer-name {
@@ -799,7 +807,7 @@ body.header-hidden .top-header {
     font-size: clamp(0.65rem, 1.5vw, 0.72rem);
     font-weight: 600;
     color: var(--gold);
-    margin-top: 1px;
+    margin-top: 0;
   }
 
   /* ── WELCOME SECTION ── */
