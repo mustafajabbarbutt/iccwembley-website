@@ -440,6 +440,45 @@ body.header-hidden .top-header {
     line-height: 1.1;
   }
 
+  /* ── PDF DOWNLOAD BUTTON ── */
+  .pdf-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    color: var(--gold-light);
+    border: 1.5px solid rgba(201,151,58,0.6);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  .pdf-download-btn:hover {
+    background: rgba(201,151,58,0.25);
+    border-color: var(--gold-light);
+    transform: scale(1.04);
+  }
+
+  .pdf-download-btn:active {
+    transform: scale(0.97);
+  }
+
+  .pdf-download-btn svg {
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+
   .prayer-card-header .dates {
     display: flex;
     align-items: center;
@@ -1244,6 +1283,12 @@ body.header-hidden .top-header {
         <div class="date-divider">·</div>
         <div class="hijri-date" id="hijri-date"></div>
       </div>
+      <a id="pdf-download-btn" class="pdf-download-btn" href="#" download aria-label="Download this month's prayer timetable PDF">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-7 4v-2h14v2H5z"/>
+        </svg>
+        <span id="pdf-btn-label">Timetable PDF</span>
+      </a>
     </div>
     
     <!-- COUNTDOWN TIMER -->
@@ -1694,6 +1739,45 @@ function updateCountdown() {
     }
   }
 }
+
+// ── PDF DOWNLOAD BUTTON — auto-updates to current month ──
+(function() {
+  const MONTH_NAMES = [
+    'january','february','march','april','may','june',
+    'july','august','september','october','november','december'
+  ];
+  const MONTH_DISPLAY = [
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December'
+  ];
+
+  function updatePdfBtn() {
+    const now = new Date();
+    const month = MONTH_NAMES[now.getMonth()];
+    const year  = now.getFullYear();
+    // Expected file naming convention: prayer-times-may-2026.pdf
+    // Change the path below to match where you store your PDFs
+    const pdfPath = `pdfs/prayer-times-${month}-${year}.pdf`;
+    const btn   = document.getElementById('pdf-download-btn');
+    const label = document.getElementById('pdf-btn-label');
+    if (btn)   { btn.href = pdfPath; btn.setAttribute('download', `ICC-Wembley-Prayer-Times-${MONTH_DISPLAY[now.getMonth()]}-${year}.pdf`); }
+    if (label) { label.textContent = `${MONTH_DISPLAY[now.getMonth()]} Timetable`; }
+  }
+
+  updatePdfBtn();
+
+  // Re-check at midnight in case the page is left open across month boundary
+  function scheduleMonthCheck() {
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth() + 1, 1); // first of next month
+    const msUntilMidnight = midnight - now;
+    setTimeout(function() {
+      updatePdfBtn();
+      scheduleMonthCheck(); // reschedule for the following month
+    }, msUntilMidnight);
+  }
+  scheduleMonthCheck();
+})();
 
 updateDisplay();
 
