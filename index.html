@@ -192,8 +192,13 @@ body.header-hidden .top-header {
   transform: translateY(-100%);
 }
 
-/* Desktop: also hide the desktop nav when header is hidden */
+/* Desktop: also hide the desktop nav when header is hidden (MOBILE ONLY) */
 @media (min-width: 768px) {
+  body.header-hidden .desktop-nav {
+    transform: translateY(0); /* Keep visible on desktop */
+  }
+}
+@media (max-width: 767px) {
   body.header-hidden .desktop-nav {
     transform: translateY(-100%);
   }
@@ -1159,6 +1164,7 @@ body.header-hidden .top-header {
       border-bottom: 2px solid var(--gold);
       box-shadow: 0 2px 12px rgba(0,0,0,0.2);
       z-index: 99; /* Above nav (98) but below header (100) */
+      transform: translateY(0) !important; /* Always visible on desktop */
     }
   }
   .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
@@ -1811,7 +1817,7 @@ updateDisplay();
 // Refresh every second for countdown timer accuracy
 setInterval(updateDisplay, 1000);
 
-// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP ──
+// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN, SHOW ON SCROLL UP (MOBILE ONLY) ──
 (function(){
   let lastY = window.scrollY || 0;
   let ticking = false;
@@ -1819,6 +1825,12 @@ setInterval(updateDisplay, 1000);
   const DELTA = 8;
 
   function onScroll(){
+    // Disable auto-hide on desktop (768px and above)
+    if(window.innerWidth >= 768) {
+      document.body.classList.remove('header-hidden');
+      return;
+    }
+
     if(ticking) return;
     ticking = true;
     window.requestAnimationFrame(() => {
