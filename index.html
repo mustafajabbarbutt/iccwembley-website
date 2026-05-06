@@ -485,15 +485,17 @@ body.header-hidden .top-header {
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
   }
 
   .prayer-card-header .gregorian {
-    font-size: clamp(1.15rem, 4vw, 1.5rem);
+    font-size: clamp(1.05rem, 3.5vw, 1.35rem);
     font-weight: 700;
     color: var(--gold-light);
-    white-space: nowrap;
+    white-space: normal;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    line-height: 1.1;
+    line-height: 1.2;
+    text-align: center;
   }
 
   .prayer-card-header .date-divider {
@@ -1285,7 +1287,6 @@ body.header-hidden .top-header {
   <!-- TODAY'S PRAYER TIMES CARD -->
   <div class="prayer-card scroll-fade">
     <div class="prayer-card-header">
-      <h2>Today's Prayer Times</h2>
       <div class="dates">
         <div class="gregorian" id="gregorian-date"></div>
         <div class="date-divider">·</div>
@@ -1569,9 +1570,17 @@ function updateDisplay() {
     return;
   }
 
-  // Update date header
-  document.getElementById('gregorian-date').textContent = todayData.gregorian;
-  document.getElementById('hijri-date').textContent      = todayData.hijri;
+  // Update date header with full formats
+  const gregorianFull = today.toLocaleDateString('en-GB', { 
+    weekday: 'long', 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric' 
+  });
+  document.getElementById('gregorian-date').textContent = gregorianFull;
+  
+  // Display hijri date as-is from the data file (should include year)
+  document.getElementById('hijri-date').textContent = todayData.hijri;
 
   // For each prayer, decide whether to show today's or tomorrow's time
   const prayerNames = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
