@@ -19,6 +19,7 @@
     --bottom-nav-h: 70px;
     --top-header-h: 80px;
     --desktop-nav-h: 50px;
+    --alert-h: 42px;
     --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
   }
 
@@ -26,7 +27,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: var(--top-header-h);
+    scroll-padding-top: calc(var(--top-header-h) + var(--alert-h));
   }
 
   /* Smooth momentum scrolling for webkit browsers */
@@ -35,7 +36,7 @@
     background: var(--cream);
     color: var(--text);
     overflow-x: hidden;
-    padding-top: var(--top-header-h);
+    padding-top: calc(var(--top-header-h) + var(--alert-h));
     padding-bottom: calc(var(--bottom-nav-h) + 42px);
     -webkit-overflow-scrolling: touch;
   }
@@ -43,7 +44,7 @@
   /* Desktop: add space for top navigation and donation ticker */
   @media (min-width: 768px) {
     body {
-      padding-top: calc(var(--top-header-h) + var(--desktop-nav-h) + 42px); /* Added 42px for ticker */
+      padding-top: calc(var(--top-header-h) + var(--alert-h) + var(--desktop-nav-h) + 42px); /* header + isha alert + ticker + nav */
       padding-bottom: 42px; /* Remove bottom nav padding on desktop */
     }
   }
@@ -261,7 +262,7 @@ body.header-hidden .top-header {
     .desktop-nav {
       display: flex;
       position: fixed;
-      top: calc(var(--top-header-h) + 42px); /* Below header + donation ticker */
+      top: calc(var(--top-header-h) + var(--alert-h) + 42px); /* Below header + alert + donation ticker */
       left: 0;
       right: 0;
       height: var(--desktop-nav-h);
@@ -1158,7 +1159,7 @@ body.header-hidden .top-header {
   /* Desktop: move donation ticker between header and navigation */
   @media (min-width: 768px) {
     .donate-ticker {
-      top: var(--top-header-h); /* Right below header */
+      top: calc(var(--top-header-h) + var(--alert-h)); /* Right below header + alert banner */
       bottom: auto;
       border-top: none;
       border-bottom: 2px solid var(--gold);
@@ -1202,6 +1203,83 @@ body.header-hidden .top-header {
   @keyframes dtPulse{
     0%,100%{transform:scale(1);}
     50%{transform:scale(1.25);}
+  }
+
+  /* ── ISHA TIMES ALERT BANNER (UNDER HEADER) ── */
+  .alert-banner{
+    position:fixed;
+    top:var(--top-header-h);
+    left:0;right:0;
+    height:var(--alert-h);
+    z-index:99;
+    display:flex;align-items:center;
+    overflow:hidden;
+    background:linear-gradient(90deg,#F5C84C 0%,#FFE08A 50%,#F5C84C 100%);
+    color:var(--red-dark);
+    border-bottom:2px solid var(--red);
+    box-shadow:0 2px 10px rgba(0,0,0,0.25);
+    transform:translateY(0);
+    transition:transform 0.3s ease;
+    will-change:transform;
+  }
+  /* Mobile: when header slides away, banner stays visible and pins to top */
+  body.header-hidden .alert-banner{
+    transform:translateY(calc(-1 * var(--top-header-h)));
+  }
+  @media (min-width:768px){
+    .alert-banner{ transform:translateY(0) !important; }
+  }
+  .alert-banner-label{
+    position:relative;z-index:2;
+    flex-shrink:0;
+    height:100%;
+    display:flex;align-items:center;gap:0.4rem;
+    padding:0 0.9rem;
+    background:var(--red);
+    color:#fff;
+    font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+    box-shadow:4px 0 8px rgba(0,0,0,0.25);
+  }
+  .alert-banner-label .ab-icon{display:inline-block;animation:abPulse 1.4s ease-in-out infinite;}
+  .alert-banner-viewport{flex:1;min-width:0;overflow:hidden;}
+  .alert-banner-track{
+    display:flex;width:max-content;
+    white-space:nowrap;
+    animation:abScroll 30s linear infinite;
+    will-change:transform;
+  }
+  .alert-banner:hover .alert-banner-track,
+  .alert-banner:active .alert-banner-track{animation-play-state:paused;}
+  .alert-banner-group{display:flex;align-items:center;flex-shrink:0;}
+  .alert-banner-item{
+    display:inline-flex;align-items:center;gap:0.55rem;
+    padding:0 1.5rem;
+    font-family:'Nunito Sans',sans-serif;
+    font-size:1rem;font-weight:800;letter-spacing:0.02em;
+  }
+  .alert-banner-item .ab-time{
+    background:var(--red);color:#fff;
+    padding:0.15rem 0.6rem;border-radius:12px;
+    font-weight:800;
+  }
+  .alert-banner-item .ab-sep{color:var(--red);font-size:1.1rem;}
+  @keyframes abScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @keyframes abPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+  }
+  @media (max-width:500px){
+    :root{ --alert-h:38px; }
+    .alert-banner-label{font-size:0.66rem;padding:0 0.6rem;}
+    .alert-banner-item{font-size:0.86rem;padding:0 1.1rem;gap:0.4rem;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .alert-banner-track{animation:none;}
+    .alert-banner-viewport{overflow-x:auto;}
+    .alert-banner-label .ab-icon{animation:none;}
   }
 
   /* ── RESPONSIVE ── */
@@ -1251,6 +1329,27 @@ body.header-hidden .top-header {
     <div class="header-title">Islamic Cultural Centre <span style="color: var(--gold-light);">Wembley</span></div>
   </div>
 </header>
+
+<!-- ISHA TIMES ALERT BANNER -->
+<div class="alert-banner" role="region" aria-label="Important notice: Isha Salaah times">
+  <div class="alert-banner-label"><span class="ab-icon" aria-hidden="true">⚠</span>Important</div>
+  <div class="alert-banner-viewport">
+    <div class="alert-banner-track">
+      <div class="alert-banner-group">
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+      </div>
+      <div class="alert-banner-group" aria-hidden="true">
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+        <span class="alert-banner-item">Isha Salaah <span class="ab-sep">•</span> Weekdays: <span class="ab-time">07:30 PM</span> <span class="ab-sep">•</span> Weekends: <span class="ab-time">06:00 PM</span><span class="ab-sep">✦</span></span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Desktop Navigation (appears only on desktop, hidden on mobile) -->
 <nav class="desktop-nav" role="navigation" aria-label="Main navigation">
