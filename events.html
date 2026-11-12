@@ -6,6 +6,101 @@
 <meta name="description" content="ICC Wembley Programs & Events - Islamic lectures, youth activities, and community gatherings">
 <title>Events & Programs — ICC Wembley</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito+Sans:wght@300;400;600;700&family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     EVENTS LIST — EDIT THIS SECTION TO ADD / REMOVE EVENTS
+     ============================================================
+
+     HOW TO ADD A NEW EVENT
+     1. Save the poster image in the same folder as this file
+        (e.g. "eid-dinner-poster.png").
+     2. Copy the BLANK TEMPLATE below.
+     3. Paste it inside the [ ... ] list, at the position you want
+        it to appear (top of the list = first on the page).
+     4. Fill in the details between the ` ` marks.
+        (Using ` ` means apostrophes like Jumu'ah are fine.)
+     5. Make sure there is a comma } , between each event.
+     6. Save and upload this file.
+
+     HOW TO REMOVE AN EVENT
+     Delete everything from its opening {  to its closing  },
+
+     FILTER TAGS you can use (put as many as apply):
+       "upcoming", "weekly", "health", "youth",
+       "women", "lectures", "educational"
+     The event's "category" is included automatically, so you
+     don't need to repeat it in the tags.
+
+     ---------- BLANK TEMPLATE (copy from here) ----------
+     {
+       title:       `Event name`,
+       category:    `youth`,
+       date:        `Every Saturday`,
+       time:        `7:00 PM - 9:00 PM`,
+       location:    `ICC Wembley`,
+       description: `A short description of the event.`,
+       poster:      `my-poster.png`,
+       tags:        ["weekly", "upcoming"],
+       phone:       `02089033760`
+     },
+     ---------- (to here) ----------
+     ("phone" is optional — leave it as `` to hide the Call button.)
+     ============================================================ -->
+<script>
+const eventsData = [
+
+  {
+    title:       `Youth Activities`,
+    category:    `youth`,
+    date:        `Every Saturday (started 31st October 2026)`,
+    time:        `7:00 PM - 9:00 PM`,
+    location:    `ICC Wembley`,
+    description: `Sports, games and fun for children aged 11+. Table tennis, pool, air hockey and PS5 gaming every Saturday evening. Come along, build friendships, have fun and be part of our community!`,
+    poster:      `youth-activities-poster.jpg`,
+    tags:        ["weekly", "upcoming"],
+    phone:       `02089033760`
+  },
+
+  {
+    title:       `Physiotherapy Clinic`,
+    category:    `health`,
+    date:        `Every Tuesday`,
+    time:        `12:00 PM - 1:00 PM`,
+    location:    `ICC Wembley`,
+    description: `Professional physiotherapy clinic led by Dr Julian Kein (Lead Specialist). Services include: Assessment and Diagnosis, Home Exercise Programs, Individualized Treatment Plans, and Rehabilitation Sessions. Book your appointment today.`,
+    poster:      `physiotherapy-clinic-poster.png`,
+    tags:        ["weekly", "upcoming"],
+    phone:       `02089033760`
+  },
+
+  {
+    title:       `Tajweed for Adults`,
+    category:    `educational`,
+    date:        `Every Monday`,
+    time:        `After Asr Salat`,
+    location:    `ICC Wembley`,
+    description: `Learn the proper recitation of the Quran with our comprehensive Tajweed course for adults. Topics covered: Articulation points, Letter Characteristics, Rules, Recitation, and Understanding. Perfect for anyone looking to improve their Quranic recitation.`,
+    poster:      `tajweed-poster.png`,
+    tags:        ["weekly", "upcoming"],
+    phone:       `02089033760`
+  },
+
+  {
+    title:       `Quran Tafseer`,
+    category:    `lectures`,
+    date:        `Every Tuesday`,
+    time:        `After Asr Salat`,
+    location:    `ICC Wembley`,
+    description: `Join us for weekly Quran Tafseer (exegesis) sessions every Tuesday after Asr Salat. Sisters may listen online via @Emasjidlive. Deepen your understanding of the Quran's meanings, context, and teachings. For further information, contact: 0208 903 3760`,
+    poster:      `tafseer-poster.png`,
+    tags:        ["weekly", "educational", "upcoming"],
+    phone:       `02089033760`
+  }
+
+];
+</script>
+<!-- ================= END OF EVENTS LIST ================= -->
+
 <style>
   :root {
     --red: #8B1A1A;
@@ -38,11 +133,8 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Desktop: different padding */
   @media (min-width: 900px) {
-    html {
-      scroll-padding-top: 182px; /* 80px header + 42px ticker + 60px nav */
-    }
+    html { scroll-padding-top: 182px; }
     body {
       padding-top: 182px; /* 80px header + 42px ticker + 60px nav */
       padding-bottom: 20px;
@@ -71,55 +163,28 @@
   }
 
   @keyframes fadeInHeader {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Only on mobile: hide header on scroll */
   @media (max-width: 899px) {
-    body.header-hidden .top-header {
-      transform: translateY(-100%);
-    }
+    body.header-hidden .top-header { transform: translateY(-100%); }
   }
 
   .header-logo {
-    width: 72px; 
+    width: 72px;
     height: 72px;
     object-fit: contain;
     transition: transform var(--transition);
   }
 
-  .header-text {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .header-text { display: flex; align-items: center; gap: 6px; }
 
   .header-title {
     font-family: 'Playfair Display', serif;
     color: var(--white);
     font-size: 1.6rem;
     font-weight: 700;
-    line-height: 1.1;
-  }
-
-  .header-divider {
-    color: var(--gold-light);
-    font-size: 1.1rem;
-    margin: 0 2px;
-  }
-
-  .header-subtitle {
-    color: var(--gold-light);
-    font-size: 1.35rem;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
     line-height: 1.1;
   }
 
@@ -134,8 +199,7 @@
     text-decoration:none;
     -webkit-tap-highlight-color:transparent;
   }
-  
-  /* Mobile: fixed at bottom above bottom nav */
+
   @media (max-width: 899px) {
     .donate-ticker {
       position:fixed;
@@ -144,19 +208,17 @@
       border-top:2px solid var(--gold);
     }
   }
-  
-  /* Desktop: fixed below top header */
+
   @media (min-width: 900px) {
     .donate-ticker {
       position: fixed;
       top: var(--top-header-h);
-      left: 0;
-      right: 0;
+      left: 0; right: 0;
       z-index: 99;
       border-bottom: 2px solid var(--gold);
     }
   }
-  
+
   .donate-ticker:hover{background:linear-gradient(90deg, #25A35E 0%, #2DB870 50%, #25A35E 100%);}
   .donate-ticker-track{
     display:flex;align-items:center;
@@ -185,26 +247,17 @@
     font-size:0.72rem;font-weight:800;text-transform:uppercase;
     letter-spacing:0.08em;
   }
-  @keyframes dtScroll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-  @keyframes dtPulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.25);}
-  }
+  @keyframes dtScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @keyframes dtPulse{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.25);} }
 
   /* ── TOP NAVIGATION (Desktop only) ── */
-  .top-nav {
-    display: none;
-  }
+  .top-nav { display: none; }
 
   @media (min-width: 900px) {
     .top-nav {
       position: fixed;
-      top: 122px; /* 80px header + 42px ticker */
-      left: 0;
-      right: 0;
+      top: 122px;
+      left: 0; right: 0;
       height: 60px;
       background: white;
       z-index: 98;
@@ -231,14 +284,8 @@
       position: relative;
     }
 
-    .top-nav a:last-child {
-      border-right: none;
-    }
-
-    .top-nav a:hover {
-      background: var(--cream);
-      color: var(--red);
-    }
+    .top-nav a:last-child { border-right: none; }
+    .top-nav a:hover { background: var(--cream); color: var(--red); }
 
     .top-nav a.active {
       background: linear-gradient(135deg, var(--red-dark), var(--red));
@@ -249,9 +296,7 @@
     .top-nav a.active::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 3px;
       background: var(--gold-light);
     }
@@ -260,9 +305,7 @@
   /* ── BOTTOM NAV (Mobile only) ── */
   .bottom-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     height: var(--bottom-nav-h);
     background: var(--white);
     display: flex;
@@ -273,11 +316,7 @@
     padding: 0 8px;
   }
 
-  @media (min-width: 900px) {
-    .bottom-nav {
-      display: none;
-    }
-  }
+  @media (min-width: 900px) { .bottom-nav { display: none; } }
 
   .bn-item {
     flex: 1;
@@ -298,32 +337,17 @@
   .bn-item::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: var(--red);
     transform: scaleX(0);
     transition: var(--transition);
   }
 
-  .bn-item:hover {
-    background: rgba(0,0,0,0.03);
-  }
-
-  .bn-item.active {
-    color: var(--red);
-    background: var(--cream);
-  }
-
-  .bn-item.active::before {
-    transform: scaleX(1);
-  }
-
-  .bn-icon {
-    font-size: 1.5rem;
-    margin-bottom: 4px;
-  }
+  .bn-item:hover { background: rgba(0,0,0,0.03); }
+  .bn-item.active { color: var(--red); background: var(--cream); }
+  .bn-item.active::before { transform: scaleX(1); }
+  .bn-icon { font-size: 1.5rem; margin-bottom: 4px; }
 
   /* ── MAIN CONTENT ── */
   .main-content {
@@ -335,22 +359,12 @@
   }
 
   @keyframes fadeInContent {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   /* ── PAGE HEADER ── */
-  .page-header {
-    text-align: center;
-    margin-bottom: 32px;
-    padding: 24px 16px;
-  }
+  .page-header { text-align: center; margin-bottom: 32px; padding: 24px 16px; }
 
   .page-header h1 {
     font-family: 'Amiri', serif;
@@ -360,11 +374,7 @@
     font-weight: 700;
   }
 
-  .page-header p {
-    font-size: 1rem;
-    color: var(--text-light);
-    line-height: 1.6;
-  }
+  .page-header p { font-size: 1rem; color: var(--text-light); line-height: 1.6; }
 
   /* ── FILTER TABS ── */
   .filter-tabs {
@@ -376,21 +386,15 @@
   }
 
   @media (min-width: 600px) {
-    .filter-tabs {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
+    .filter-tabs { grid-template-columns: repeat(4, 1fr); gap: 10px; }
   }
 
   @media (min-width: 900px) {
-    .filter-tabs {
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-    }
+    .filter-tabs { grid-template-columns: repeat(8, 1fr); gap: 10px; }
   }
 
   .filter-btn {
-    padding: 10px 16px;
+    padding: 10px 12px;
     background: white;
     border: 2px solid var(--gold);
     border-radius: 24px;
@@ -406,21 +410,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: inherit;
   }
 
   @media (min-width: 600px) {
-    .filter-btn {
-      font-size: 0.85rem;
-      min-height: 42px;
-    }
+    .filter-btn { font-size: 0.85rem; min-height: 42px; }
   }
 
   @media (min-width: 900px) {
-    .filter-btn {
-      font-size: 0.9rem;
-      white-space: nowrap;
-      min-height: auto;
-    }
+    .filter-btn { font-size: 0.85rem; white-space: nowrap; min-height: auto; }
   }
 
   .filter-btn:hover {
@@ -443,19 +441,11 @@
   }
 
   @media (min-width: 600px) {
-    .events-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      padding: 0 16px;
-    }
+    .events-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 0 16px; }
   }
 
   @media (min-width: 900px) {
-    .events-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      padding: 0 16px;
-    }
+    .events-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 16px; }
   }
 
   /* ── EVENT CARD ── */
@@ -474,14 +464,8 @@
   }
 
   @keyframes cardFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .event-card:nth-child(1) { animation-delay: 0.1s; }
@@ -495,10 +479,6 @@
   .event-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  }
-
-  .event-card.hidden {
-    display: none;
   }
 
   .event-poster {
@@ -515,14 +495,11 @@
     flex-direction: column;
   }
 
-  @media (min-width: 600px) {
-    .event-content {
-      padding: 14px 16px 16px;
-    }
-  }
+  @media (min-width: 600px) { .event-content { padding: 14px 16px 16px; } }
 
   .event-category {
     display: inline-block;
+    align-self: flex-start;
     padding: 3px 10px;
     background: linear-gradient(135deg, var(--gold-light), var(--gold));
     color: var(--red-dark);
@@ -543,13 +520,9 @@
     line-height: 1.3;
   }
 
-  @media (min-width: 600px) {
-    .event-title {
-      font-size: 1.15rem;
-    }
-  }
+  @media (min-width: 600px) { .event-title { font-size: 1.15rem; } }
 
-  .event-date {
+  .event-date, .event-location {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -558,20 +531,10 @@
     margin-bottom: 3px;
   }
 
-  .event-location {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--text-light);
-    font-size: 0.78rem;
-    margin-bottom: 10px;
-  }
+  .event-location { margin-bottom: 10px; }
 
   @media (min-width: 600px) {
-    .event-date, .event-location {
-      font-size: 0.88rem;
-      gap: 6px;
-    }
+    .event-date, .event-location { font-size: 0.88rem; gap: 6px; }
   }
 
   .event-description {
@@ -585,16 +548,13 @@
     overflow: hidden;
   }
 
-  @media (min-width: 600px) {
-    .event-description {
-      font-size: 0.88rem;
-    }
-  }
+  @media (min-width: 600px) { .event-description { font-size: 0.88rem; } }
 
   .event-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    margin-top: auto;
     color: var(--red);
     font-weight: 600;
     font-size: 0.9rem;
@@ -602,9 +562,7 @@
     transition: gap 0.3s cubic-bezier(0.4,0,0.2,1);
   }
 
-  .event-link:hover {
-    gap: 10px;
-  }
+  .event-link:hover { gap: 10px; }
 
   /* ── EMPTY STATE ── */
   .empty-state {
@@ -614,14 +572,8 @@
     display: none;
   }
 
-  .empty-state.visible {
-    display: block;
-  }
-
-  .empty-state .emoji {
-    font-size: 3rem;
-    margin-bottom: 16px;
-  }
+  .empty-state.visible { display: block; }
+  .empty-state .emoji { font-size: 3rem; margin-bottom: 16px; }
 
   .empty-state h3 {
     font-family: 'Amiri', serif;
@@ -630,26 +582,21 @@
     margin-bottom: 8px;
   }
 
-  .empty-state p {
-    font-size: 1rem;
-  }
+  .empty-state p { font-size: 1rem; }
 
   /* ── MODAL ── */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0,0,0,0.7);
-    z-index: 200;
+    z-index: 400;
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    animation: fadeIn 0.3s cubic-bezier(0.4,0,0.2,1);
   }
 
-  .modal-overlay.visible {
-    display: flex;
-  }
+  .modal-overlay.visible { display: flex; }
 
   .modal {
     background: white;
@@ -663,20 +610,11 @@
   }
 
   @keyframes modalSlideUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .modal-header {
-    position: relative;
-    padding: 0;
-  }
+  .modal-header { position: relative; padding: 0; }
 
   .modal-poster {
     width: 100%;
@@ -687,10 +625,8 @@
 
   .modal-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 36px;
-    height: 36px;
+    top: 12px; right: 12px;
+    width: 36px; height: 36px;
     border-radius: 50%;
     background: rgba(255,255,255,0.95);
     border: none;
@@ -704,13 +640,9 @@
     transition: transform 0.2s;
   }
 
-  .modal-close:hover {
-    transform: rotate(90deg);
-  }
+  .modal-close:hover { transform: rotate(90deg); }
 
-  .modal-body {
-    padding: 24px;
-  }
+  .modal-body { padding: 24px; }
 
   .modal-category {
     display: inline-block;
@@ -734,9 +666,7 @@
     line-height: 1.3;
   }
 
-  .modal-info {
-    margin-bottom: 20px;
-  }
+  .modal-info { margin-bottom: 20px; }
 
   .modal-info-item {
     display: flex;
@@ -747,10 +677,7 @@
     font-size: 1rem;
   }
 
-  .modal-info-icon {
-    font-size: 1.2rem;
-    color: var(--gold);
-  }
+  .modal-info-icon { font-size: 1.2rem; color: var(--gold); }
 
   .modal-description {
     color: var(--text);
@@ -759,10 +686,7 @@
     margin-bottom: 20px;
   }
 
-  .modal-actions {
-    display: flex;
-    gap: 12px;
-  }
+  .modal-actions { display: flex; gap: 12px; }
 
   .modal-btn {
     flex: 1;
@@ -775,6 +699,7 @@
     text-decoration: none;
     text-align: center;
     border: none;
+    font-family: inherit;
   }
 
   .modal-btn-primary {
@@ -793,9 +718,7 @@
     border: 2px solid var(--gold);
   }
 
-  .modal-btn-secondary:hover {
-    background: var(--gold-light);
-  }
+  .modal-btn-secondary:hover { background: var(--gold-light); }
 </style>
 </head>
 <body>
@@ -803,11 +726,7 @@
 <!-- TOP HEADER -->
 <header class="top-header">
   <a href="index.html" aria-label="Go to homepage">
-    <img 
-      src="IMG_0931_transparent.png" 
-      alt="ICC Wembley Logo" 
-      class="header-logo"
-    >
+    <img src="IMG_0931_transparent.png" alt="ICC Wembley Logo" class="header-logo">
   </a>
   <div class="header-text">
     <h1 class="header-title">Events & Programs</h1>
@@ -823,7 +742,7 @@
     <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
     <span class="donate-ticker-item"><span class="dt-heart">❤</span>Help us keep the masjid open for daily prayers, Jumu'ah &amp; Madrassa<span class="donate-ticker-cta">Donate</span></span>
     <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
-    
+
     <!-- Duplicate for seamless loop -->
     <span class="donate-ticker-item"><span class="dt-heart">❤</span>Support Your Masjid — Every Donation Counts<span class="donate-ticker-cta">Donate Now</span></span>
     <span class="donate-ticker-item"><span class="dt-sep">✦</span></span>
@@ -846,14 +765,15 @@
 
 <!-- MAIN CONTENT -->
 <main class="main-content">
-  
-  <!-- PAGE HEADER -->
+
   <div class="page-header">
     <h1>📅 Events & Programs</h1>
     <p>Discover our community programs, lectures, and activities</p>
   </div>
 
-  <!-- FILTER TABS -->
+  <!-- FILTER TABS
+       To add a new filter, copy a button and change data-filter
+       to the tag name you use in your events. -->
   <div class="filter-tabs">
     <button class="filter-btn active" data-filter="all">All Programs</button>
     <button class="filter-btn" data-filter="upcoming">Upcoming</button>
@@ -865,12 +785,8 @@
     <button class="filter-btn" data-filter="educational">Educational</button>
   </div>
 
-  <!-- EVENTS GRID -->
-  <div class="events-grid" id="eventsGrid">
-    <!-- Events will be dynamically inserted here -->
-  </div>
+  <div class="events-grid" id="eventsGrid"></div>
 
-  <!-- EMPTY STATE -->
   <div class="empty-state" id="emptyState">
     <div class="emoji">🔍</div>
     <h3>No Programs Found</h3>
@@ -909,230 +825,173 @@
 
 <!-- EVENT MODAL -->
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-header">
       <img id="modalPoster" src="" alt="" class="modal-poster">
-      <button class="modal-close" id="modalClose">×</button>
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
     </div>
     <div class="modal-body">
       <span class="modal-category" id="modalCategory"></span>
       <h2 class="modal-title" id="modalTitle"></h2>
       <div class="modal-info">
-        <div class="modal-info-item">
-          <span class="modal-info-icon">📅</span>
-          <span id="modalDate"></span>
-        </div>
-        <div class="modal-info-item">
-          <span class="modal-info-icon">🕐</span>
-          <span id="modalTime"></span>
-        </div>
-        <div class="modal-info-item">
-          <span class="modal-info-icon">📍</span>
-          <span id="modalLocation"></span>
-        </div>
+        <div class="modal-info-item"><span class="modal-info-icon">📅</span><span id="modalDate"></span></div>
+        <div class="modal-info-item"><span class="modal-info-icon">🕐</span><span id="modalTime"></span></div>
+        <div class="modal-info-item"><span class="modal-info-icon">📍</span><span id="modalLocation"></span></div>
       </div>
       <p class="modal-description" id="modalDescription"></p>
       <div class="modal-actions">
+        <a class="modal-btn modal-btn-primary" id="modalCall" href="#">📞 Call</a>
         <button class="modal-btn modal-btn-secondary" id="modalShare">Share</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ===== PAGE CODE — no need to edit below this line ===== -->
 <script>
-// SAMPLE EVENT DATA - Replace with your actual event data
-const eventsData = [
-  {
-    id: 1,
-    title: "Physiotherapy Clinic",
-    category: "health",
-    date: "Every Tuesday",
-    time: "12:00 PM - 1:00 PM",
-    location: "ICC Wembley",
-    description: "Professional physiotherapy clinic led by Dr Julian Kein (Lead Specialist). Services include: Assessment and Diagnosis, Home Exercise Programs, Individualized Treatment Plans, and Rehabilitation Sessions. Book your appointment today.",
-    poster: "physiotherapy-clinic-poster.png",
-    tags: ["weekly", "health", "upcoming"],
-    registerLink: "tel:02089033760"
-  },
-  {
-    id: 8,
-    title: "Tajweed for Adults",
-    category: "educational",
-    date: "Every Monday",
-    time: "After Asr Salat",
-    location: "ICC Wembley",
-    description: "Learn the proper recitation of the Quran with our comprehensive Tajweed course for adults. Topics covered: Articulation points, Letter Characteristics, Rules, Recitation, and Understanding. Perfect for anyone looking to improve their Quranic recitation.",
-    poster: "tajweed-poster.png",
-    tags: ["weekly", "educational", "upcoming"],
-    registerLink: "tel:02089033760"
-  },
-  {
-    id: 9,
-    title: "Quran Tafseer",
-    category: "lectures",
-    date: "Every Tuesday",
-    time: "After Asr Salat",
-    location: "ICC Wembley",
-    description: "Join us for weekly Quran Tafseer (exegesis) sessions every Tuesday after Asr Salat. Sisters may listen online via @Emasjidlive. Deepen your understanding of the Quran's meanings, context, and teachings. For further information, contact: 0208 903 3760",
-    poster: "tafseer-poster.png",
-    tags: ["weekly", "lectures", "educational", "upcoming"],
-    registerLink: "tel:02089033760"
-  }
-];
+let currentEvent = null;
 
-// Render events
+// Does this event match the selected filter?
+function matchesFilter(event, filter) {
+  if (filter === 'all') return true;
+  const tags = (event.tags || []).map(t => t.toLowerCase());
+  return (event.category || '').toLowerCase() === filter || tags.includes(filter);
+}
+
 function renderEvents(filter = 'all') {
   const grid = document.getElementById('eventsGrid');
   const emptyState = document.getElementById('emptyState');
-  
   grid.innerHTML = '';
-  
-  const filteredEvents = filter === 'all' 
-    ? eventsData 
-    : eventsData.filter(event => event.tags.includes(filter));
-  
-  if (filteredEvents.length === 0) {
-    emptyState.classList.add('visible');
-    return;
-  }
-  
-  emptyState.classList.remove('visible');
-  
-  filteredEvents.forEach(event => {
+
+  const filtered = eventsData.filter(ev => matchesFilter(ev, filter));
+  emptyState.classList.toggle('visible', filtered.length === 0);
+
+  filtered.forEach(event => {
     const card = document.createElement('div');
     card.className = 'event-card';
-    card.innerHTML = `
-      <img src="${event.poster}" alt="${event.title}" class="event-poster">
-      <div class="event-content">
-        <span class="event-category">${event.category}</span>
-        <h3 class="event-title">${event.title}</h3>
-        <div class="event-date">📅 ${event.date}</div>
-        <div class="event-location">📍 ${event.location}</div>
-        <p class="event-description">${event.description}</p>
-        <a href="#" class="event-link" data-id="${event.id}">View Details →</a>
-      </div>
+
+    const img = document.createElement('img');
+    img.className = 'event-poster';
+    img.src = event.poster;
+    img.alt = event.title;
+    img.loading = 'lazy';
+
+    const content = document.createElement('div');
+    content.className = 'event-content';
+    content.innerHTML = `
+      <span class="event-category"></span>
+      <h3 class="event-title"></h3>
+      <div class="event-date"></div>
+      <div class="event-location"></div>
+      <p class="event-description"></p>
+      <a href="#" class="event-link">View Details →</a>
     `;
-    
+    content.querySelector('.event-category').textContent = event.category;
+    content.querySelector('.event-title').textContent = event.title;
+    content.querySelector('.event-date').textContent = '📅 ' + event.date;
+    content.querySelector('.event-location').textContent = '📍 ' + event.location;
+    content.querySelector('.event-description').textContent = event.description;
+
+    card.append(img, content);
     card.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('event-link')) {
-        openModal(event);
-      }
-    });
-    
-    card.querySelector('.event-link').addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation();
       openModal(event);
     });
-    
     grid.appendChild(card);
   });
 }
 
-// Filter functionality
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const filter = btn.getAttribute('data-filter');
-    renderEvents(filter);
+    renderEvents(btn.getAttribute('data-filter'));
   });
 });
 
-// Modal functionality
 function openModal(event) {
+  currentEvent = event;
   document.getElementById('modalPoster').src = event.poster;
+  document.getElementById('modalPoster').alt = event.title;
   document.getElementById('modalCategory').textContent = event.category;
   document.getElementById('modalTitle').textContent = event.title;
   document.getElementById('modalDate').textContent = event.date;
   document.getElementById('modalTime').textContent = event.time;
   document.getElementById('modalLocation').textContent = event.location;
   document.getElementById('modalDescription').textContent = event.description;
-  
+
+  const callBtn = document.getElementById('modalCall');
+  if (event.phone) {
+    callBtn.href = 'tel:' + event.phone.replace(/\s+/g, '');
+    callBtn.style.display = '';
+  } else {
+    callBtn.style.display = 'none';
+  }
+
   document.getElementById('modalOverlay').classList.add('visible');
   document.body.style.overflow = 'hidden';
-  
-  // Hide donation ticker when modal is open
   document.querySelector('.donate-ticker').style.display = 'none';
 }
 
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('visible');
   document.body.style.overflow = '';
-  
-  // Show donation ticker when modal is closed
   document.querySelector('.donate-ticker').style.display = 'flex';
 }
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalOverlay').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('modalOverlay')) {
-    closeModal();
-  }
+  if (e.target.id === 'modalOverlay') closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
 });
 
 document.getElementById('modalShare').addEventListener('click', async () => {
-  const event = eventsData[0]; // Get current event data
+  if (!currentEvent) return;
+  const text = `${currentEvent.title} — ${currentEvent.date}, ${currentEvent.time} at ${currentEvent.location}`;
   if (navigator.share) {
     try {
-      await navigator.share({
-        title: event.title,
-        text: event.description,
-        url: window.location.href
-      });
+      await navigator.share({ title: currentEvent.title, text, url: window.location.href });
+    } catch (err) { /* share cancelled */ }
+  } else if (navigator.clipboard) {
+    try {
+      await navigator.clipboard.writeText(text + '\n' + window.location.href);
+      alert('Event details copied — you can paste them into a message.');
     } catch (err) {
-      console.log('Share cancelled');
+      alert('Sharing is not supported on this browser');
     }
   } else {
     alert('Sharing is not supported on this browser');
   }
 });
 
-// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN (MOBILE ONLY), SHOW ON SCROLL UP ──
+// ── AUTO-HIDE TOP HEADER ON SCROLL DOWN (MOBILE ONLY) ──
 (function(){
-  // Only run on mobile
   if (window.innerWidth >= 900) return;
-  
   let lastY = window.scrollY || 0;
   let ticking = false;
-  const TOP_SAFE_ZONE = 10;    // Show header when near top
-  const DELTA = 3;              // Lower threshold for more responsive detection
+  const TOP_SAFE_ZONE = 10;
+  const DELTA = 3;
 
   function onScroll(){
-    if(ticking) return;
+    if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(() => {
       const y = window.scrollY || 0;
       const diff = y - lastY;
-
-      // Always show near top
-      if(y < TOP_SAFE_ZONE){
+      if (y < TOP_SAFE_ZONE) {
         document.body.classList.remove('header-hidden');
-        lastY = y;
-        ticking = false;
-        return;
+      } else if (Math.abs(diff) >= DELTA) {
+        document.body.classList.toggle('header-hidden', diff > 0);
       }
-
-      if(Math.abs(diff) < DELTA){ 
-        ticking = false; 
-        return; 
-      }
-
-      if(diff > 0){
-        // Scrolling DOWN → hide top header
-        document.body.classList.add('header-hidden');
-      } else {
-        // Scrolling UP → show top header
-        document.body.classList.remove('header-hidden');
-      }
-      lastY = y;
+      if (y < TOP_SAFE_ZONE || Math.abs(diff) >= DELTA) lastY = y;
       ticking = false;
     });
   }
   window.addEventListener('scroll', onScroll, {passive:true});
 })();
 
-// Initial render
 renderEvents();
 </script>
 
