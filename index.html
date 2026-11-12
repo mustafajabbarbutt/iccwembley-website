@@ -874,6 +874,71 @@ body.header-hidden .top-header {
     line-height: 1.75;
   }
 
+  /* ── LISTEN LIVE SECTION ── */
+  .live-section {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+    margin: 24px 0 20px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 2px solid var(--gold);
+  }
+
+  .live-section:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  .live-header {
+    background: var(--cream);
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--gold);
+    text-align: center;
+  }
+
+  .live-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--red);
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #D62828;
+    box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.6);
+    animation: livePulse 1.8s ease-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes livePulse {
+    0%   { box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(214, 40, 40, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(214, 40, 40, 0); }
+  }
+
+  .live-header p {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  .live-player {
+    display: block;
+    width: 100%;
+    height: 172px;
+    border: none;
+    overflow: hidden;
+  }
+
   /* ── MAP SECTION ── */
   .map-section {
     background: var(--white);
@@ -1475,10 +1540,19 @@ body.header-hidden .top-header {
     </div>
   </div>
 
-  <!-- eMASJID LIVE PLAYER -->
-  <div class="scroll-fade" style="margin: 24px 0;">
-    <iframe src="https://emasjidlive.co.uk/miniplayer/iccwembley?theme=light" style="border: none; width: 100%; height: 172px; overflow:hidden;"></iframe>
-  </div>
+  <!-- LISTEN LIVE (eMasjid Live player) -->
+  <section class="live-section scroll-fade" aria-labelledby="live-heading">
+    <div class="live-header">
+      <h3 id="live-heading"><span class="live-dot" aria-hidden="true"></span>Listen Live from the Masjid</h3>
+      <p>Tune in to the adhan, Jumu'ah khutbah and lectures — wherever you are</p>
+    </div>
+    <iframe
+      class="live-player"
+      src="https://emasjidlive.co.uk/miniplayer/iccwembley?theme=light"
+      title="ICC Wembley live audio on eMasjid Live"
+      loading="lazy"
+    ></iframe>
+  </section>
 
   <!-- CONTACT CARD -->
   <div class="contact-card scroll-fade">
